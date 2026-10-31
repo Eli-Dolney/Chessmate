@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.runtime/
+test-results/
+playwright-report/
+*.tsbuildinfo
+
+# Local secrets, editor state, and exported personal progress
+.env
+.env.*
+!.env.example
+*.log
+*.pid
+Chessmate-backup*.json
+LTW-Chess-backup*.json
+*.pgn
+.vscode/
+.idea/

@@ -1,0 +1,3 @@
+@echo off
+rem Compatibility launcher for existing shortcuts.
+call "%~dp0Stop Chessmate.cmd"

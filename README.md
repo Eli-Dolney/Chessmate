@@ -1,0 +1,78 @@
+# Chessmate
+
+Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
+
+
+## Start from GitHub (Windows)
+
+1. Clone this repository, or use **Code → Download ZIP** and extract it.
+2. Double-click **Setup Chessmate.cmd** once. It downloads a verified, project-local Node 22 runtime, installs dependencies, and builds the app. Internet is needed for this setup.
+3. Double-click **Launch Chessmate.cmd**. Play at **http://127.0.0.1:4173/** in the same browser each time. No internet, login, subscription, or paid API is needed after setup.
+
+The app includes click/drag chess, local Stockfish coaching, saved exploration branches, opponent-threat explanations, hints, opening recognition, 84 exercises, spaced practice, PGN import/export, and JSON backups. Choose glass boards and galaxy pieces in the Style studio.
+
+## Chessmate 1.2.1
+
+The app, launchers, and exported filenames now use **Chessmate**. Existing games, styles, lessons, explorations, and older backups continue to work: the browser address and internal `ltw-chess` database name intentionally stay the same. Original launcher filenames remain as compatibility aliases. The `CHESSMATE_PORT` and `CHESSMATE_TEST_URL` overrides accept the old `LTW_` names as fallbacks; the normal launcher always uses port 4173.
+
+The Git repository contains source, local engine assets, lesson content, tests, and license notices. Generated builds, the downloaded Node runtime, dependencies, test/browser profiles, logs, and personal backups are excluded. The source archive for the bundled Stockfish engine is retained in `vendor/`.
+
+## New in 1.2 — try an idea, understand the reply
+
+**Try moves** opens a separate exploration board and pauses the real game. Move either color, use Previous / Next, click move chips, or Reset position. Step back and choose another move to keep a new alternative. Choose between alternatives in the dropdown; all are saved automatically in **Your library → Saved explorations** and JSON backups.
+
+- **Computer reply once** makes one move at your selected opponent difficulty. You decide when to request another reply.
+- **Compare alternatives from here** lets you select up to three legal moves, including your saved alternatives. Each receives a full-strength local search. Open a possible line to try its replies; scores are from White's perspective and are not guaranteed outcomes.
+- **Return to game** restores your unchanged game, including a move awaiting your approval. **Use this move** is available only at your current decision: it applies the first move of your selected alternative through normal coaching. Historical exploration cannot rewrite the game.
+- **Practice this position** saves an engine-backed candidate to your practice queue. The saved move is a candidate to study, not a claim that every other move is wrong.
+- **Coach assistance** expands above the coach. Toggle opponent threats, opening ideas, position plans, and suggested moves independently. Ideas appear before answers by default. **Reveal suggested moves** enables calculated candidates and board arrows. Coaching follows the visible board and always uses full strength, independently of opponent difficulty.
+- **Opening practice** now includes 12 opening modules and six foundation modules: 84 authored exercises in total. Filter by Openings or Chess foundations. The searchable offline explorer contains 3,865 named reference lines, with transposition recognition and no invented win-rate statistics.
+
+Opening modules: Italian, Caro-Kann, Queen's Gambit Declined, Ruy Lopez, Scotch, Sicilian, French, Scandinavian, London, Queen's Gambit Accepted, Slav, and King's Indian. Foundations cover threats, forks/pins, safe captures, piece activity, pawn breaks/king safety, and basic endgames. The original 24 exercise IDs and practice history are preserved.
+
+Version 1 backups migrate automatically to version 2 while retaining games, appearance, and practice records. Use a new version 2 backup with this release or later; older application versions cannot read its exploration records. Engine restart preserves the exploration board. Board moves remain available during analysis; moving or navigating cancels outdated results.
+
+## New in 1.1 — your own chess atmosphere
+
+Open **Style studio** at the top right to choose Nebula Glass, Aurora Glass, Obsidian, or the original Classic board. Choose Galaxy, Crystal, or Classic pieces independently. The new default is Nebula Glass with Galaxy pieces. Preferences save automatically; older saves and backups receive appearance defaults without changing games or practice records.
+
+- **Draw arrows:** right-drag between two squares. Right-click a square to circle it. Draw the same marking again to remove it. On a touchscreen, enable **Draw arrows**, then drag or tap. Turn drawing off to move pieces. **Clear markings** removes drawings; changing position clears them automatically.
+- **Visual hints:** hint two highlights a piece to investigate; hint three adds an arrow for the suggested move. Coaching facts with board locations have a **Show on board** button.
+- **Explore at your pace:** use **Play line / Pause line** to watch a variation, or click its move chips to jump around. **Return to game** returns to your untouched game.
+- **Smooth moves and sounds:** the style studio includes optional motion and move sounds. Sound is synthesized locally and is off by default. Your device's reduced-motion preference disables animations even if smooth moves is enabled.
+
+All finishes, stars, gradients, pieces, and audio are generated by local SVG/CSS/Web Audio code; there are no image downloads or remote services.
+
+## Start
+
+Double-click **Launch Chessmate.cmd**. It opens http://127.0.0.1:4173 in your default browser. Use the same browser and address each time to keep your saved progress together. The installed copy is already built and includes its own Node runtime. Your system Node is not changed.
+
+**Setup Chessmate.cmd** installs dependencies and rebuilds if you change the source or use a fresh source checkout; it needs internet. **Stop Chessmate.cmd** stops this app's background server. Closing a browser tab does not stop the server.
+
+## Practice
+
+- Play either color against Gentle, Steady, or Challenging. These are engine skill settings, not calibrated human ratings. Even Gentle can play strong moves.
+- Move by clicking a piece and destination, or dragging. After your move, inspect the feedback and choose **Let the computer reply**, or **Undo / retry**.
+- Ask for three levels of hints, compare up to three lines, or inspect what changed. Exploring does not change the actual game unless you explicitly choose **Use this move**. Click **Return to game** afterward.
+- The engine's lines are possibilities, not predictions. Scores are approximate and depend on search depth. Board facts and general planning advice are labeled separately.
+- The original three opening modules have eight exercises each; nine additional openings and six foundation modules have four each. Exercises ask for particular plans; a different legal move is not automatically bad.
+- Missed exercises return in a new practice session. Successful exercises return after 1, 3, 7, and 14 days. Use **Start a new practice session** to begin a new session without closing the app.
+- Finished games save up to three review positions. You can also save a feedback position yourself. Starting another game archives the current game in Your library.
+
+## Save your work
+
+Progress is stored in IndexedDB in your browser. Export a JSON backup from the sidebar or library periodically: clearing browser data deletes local progress. Restoring a validated backup replaces the app's current games, settings, practice records, and saved explorations. PGN imports add a single game to the library; exports use standard PGN. Exploration branches are retained in JSON backups, not game PGN exports. No data is sent off your PC.
+
+## Develop and verify
+
+Use the bundled `.runtime/node-v22.23.4-win-x64/node.exe` and put that directory first on PATH when running npm. Commands: `npm run dev`, `npm run build`, `npm test`, and `npm run test:browser` (Edge required). The production launcher uses a small local-only static server rather than the development server.
+
+Implementation: React + TypeScript, chess.js for rules and history, Stockfish.js 18.0.8 lite single-threaded WASM in a worker, IndexedDB for persistence. The coach uses explicit rules and authored lessons, not generated chat. Analysis is serialized; changing positions cancels queued work and destroys the old worker so stale results cannot update a different game.
+
+Known boundaries: no online play, cloud sync, general conversational coach, calibrated human opponent model, or exhaustive opening book. Chess.js's automatic threefold/fifty-move draw behavior is used for this training app. The training engine does not use endgame tablebases. PGN import is one main-line game at a time; comments and side variations are not retained. Browser-local storage is not a substitute for an exported backup.
+
+See `THIRD-PARTY-NOTICES.md`, `LICENSE`, and `TEST-RESULTS.md` for licenses and validation details.
+
+## Preview
+
+![Chessmate with the Nebula Glass board and Galaxy pieces](docs/chessmate.png)

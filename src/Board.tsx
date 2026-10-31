@@ -1,0 +1,61 @@
+import {useContext,useId,useLayoutEffect,useRef,useState,type CSSProperties} from 'react';
+import {Chess,type Color,type PieceSymbol,type Square} from 'chess.js';
+import {names,uciMove} from './chess';
+import {AppearanceContext,type PieceStyle} from './appearance';
+import {enableSounds,playMoveTone} from './sound';
+const paths:Record<PieceSymbol,React.ReactNode>={
+ p:<><circle cx="22.5" cy="12" r="5"/><path d="M18 18h9l-2 8 5 7H15l5-7z"/><path d="M13 34h19v5H13z"/></>,
+ r:<><path d="M11 7h6v6h4V7h4v6h4V7h6v13l-5 4 1 11H14l1-11-4-4z"/><path d="M11 35h24v4H11zM15 21h15"/></>,
+ n:<><path d="M12 34c0-8 6-11 10-16l-7 4-6-4 8-11 1-4 7 3c11 4 12 16 9 28z"/><path d="M11 35h25v4H11z"/><circle cx="21" cy="12" r="1.4" fill="currentColor"/><path d="M28 12c3 6 2 11-2 16" fill="none"/></>,
+ b:<><path d="M22.5 5c-3 4-9 8-9 13 0 4 4 6 9 6s9-2 9-6c0-5-6-9-9-13z"/><path d="M23 10l-4 8M18 25h9l3 9H15zM11 35h23v4H11z"/></>,
+ q:<><path d="M10 13l5 18h15l5-18-9 10-3.5-15L19 23z"/><circle cx="9" cy="10" r="3"/><circle cx="22.5" cy="5" r="3"/><circle cx="36" cy="10" r="3"/><path d="M14 31h17v4H14zM11 36h23v3H11z"/></>,
+ k:<><path d="M22.5 3v10M18 7h9" fill="none" strokeWidth="3"/><path d="M22.5 15c-7-7-16 0-12 7l6 10h13l6-10c4-7-5-14-12.5-7zM15 32h15v3H15zM12 36h21v3H12z"/></>
+};
+export function Piece({type,color,style}:{type:PieceSymbol;color:Color;style?:PieceStyle}){
+ const appearance=useContext(AppearanceContext),finish=style??appearance.pieces,id=useId().replace(/:/g,''),white=color==='w';
+ const fill=finish==='classic'?(white?'#fff9e8':'#253d35'):`url(#${id}-surface)`;
+ return <svg viewBox="0 0 45 45" aria-hidden="true" className={`piece ${color} finish-${finish}`} style={{color:white?'#26394e':'#eddbff'}}>
+ {finish!=='classic'&&<defs>
+ <linearGradient id={`${id}-base`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={white?'#ffffff':'#b27bdf'}/><stop offset=".38" stopColor={white?'#d9edff':'#35286d'}/><stop offset=".67" stopColor={white?'#89cadf':'#180e3f'}/><stop offset="1" stopColor={white?'#f9eeff':'#8257b9'}/></linearGradient>
+ <radialGradient id={`${id}-cloud`}><stop stopColor={white?'#9394ff':'#f16ace'} stopOpacity=".85"/><stop offset=".5" stopColor={white?'#53d4f0':'#7b47d3'} stopOpacity=".5"/><stop offset="1" stopColor="#6056cf" stopOpacity="0"/></radialGradient>
+ <pattern id={`${id}-surface`} width="45" height="45" patternUnits="userSpaceOnUse"><rect width="45" height="45" fill={`url(#${id}-base)`}/>{finish==='galaxy'?<><ellipse cx="22" cy="24" rx="23" ry="11" transform="rotate(-32 22 24)" fill={`url(#${id}-cloud)`}/><path d="M8 37Q32 22 28 7" fill="none" stroke={white?'#ffffff':'#cd98ff'} opacity=".3" strokeWidth="2.5"/><g fill={white?'#ffffff':'#fceaff'}>{[[19,10,.65],[25,14,.5],[17,21,.6],[27,24,.8],[21,30,.5],[14,35,.7],[29,36,.4],[23,19,.35],[31,17,.4],[18,28,.35],[32,12,.6]].map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r}/>)}</g><path d="M23 24v4m-2-2h4" stroke="#fff" strokeWidth=".7" opacity=".8"/></>:<><path d="M12 4l8 32 8-22 5 25H11z" fill={white?'#ffffff':'#c4d5ef'} opacity=".38"/><path d="M27 8L15 29l18 4z" fill={white?'#619aaf':'#080e22'} opacity=".4"/><path d="M11 13l18 12M14 34l17-24" stroke="#f4f9ff" strokeWidth=".65" opacity=".55"/></>}</pattern>
+ </defs>}
+ <g fill={fill} stroke={finish==='classic'?(white?'#40534b':'#b8c8ad'):(white?'#eefaff':'#d3a4fa')} strokeWidth={finish==='classic'?1.6:1.15} strokeLinejoin="round" strokeLinecap="round">{paths[type]}</g>
+ {finish!=='classic'&&<path d="M15 37h15" stroke={white?'#ffffff':'#e7b6ff'} strokeWidth=".75" opacity=".8"/>}
+ </svg>;
+}
+export interface BoardArrow {from:Square;to:Square}
+export function squareCenter(square:Square,flipped:boolean){const file=square.charCodeAt(0)-97,rank=Number(square[1])-1;return {x:(flipped?7-file:file)+.5,y:(flipped?rank:7-rank)+.5};}
+export function animationFor(before:string,after:string,last?:string){
+ if(!last)return null;
+ try{const c=new Chess(before),m=uciMove(c,last);if(c.fen()!==after)return null;const moves:BoardArrow[]=[{from:m.from,to:m.to}];if(m.isKingsideCastle())moves.push({from:(m.color==='w'?'h1':'h8'),to:(m.color==='w'?'f1':'f8')});if(m.isQueensideCastle())moves.push({from:(m.color==='w'?'a1':'a8'),to:(m.color==='w'?'d1':'d8')});return {moves,capture:!!m.captured};}catch{return null;}
+}
+export default function Board({fen,flipped,onMove,disabled,last,marked=[],hintMove,hintLevel=0}:{fen:string;flipped:boolean;onMove:(uci:string)=>void;disabled:boolean;last?:string;marked?:string[];hintMove?:string;hintLevel?:number}){
+ const appearance=useContext(AppearanceContext),c=new Chess(fen),[selected,setSelected]=useState<Square|null>(null),[promotion,setPromotion]=useState<{from:Square;to:Square}|null>(null);
+ const [arrows,setArrows]=useState<BoardArrow[]>([]),[circles,setCircles]=useState<Square[]>([]),[drawMode,setDrawMode]=useState(false),[draft,setDraft]=useState<BoardArrow|null>(null);
+ const drawing=useRef<Square|null>(null),surface=useRef<HTMLDivElement>(null),previous=useRef({fen,flipped}),[motion,setMotion]=useState<{fen:string;moves:BoardArrow[]}|null>(null),marker=useId().replace(/:/g,'');
+ useLayoutEffect(()=>{
+  const before=previous.current;
+  if(before.fen!==fen){setSelected(null);setPromotion(null);setArrows([]);setCircles([]);setDraft(null);drawing.current=null;const movement=animationFor(before.fen,fen,last);setMotion(appearance.animations&&movement&&before.flipped===flipped?{fen,moves:movement.moves}:null);if(movement&&appearance.sounds)playMoveTone(movement.capture);}
+  if(before.flipped!==flipped)setMotion(null);
+  previous.current={fen,flipped};
+ },[fen,flipped,last,appearance.animations,appearance.sounds]);
+ const files=flipped?'hgfedcba':'abcdefgh';const ranks=flipped?[1,2,3,4,5,6,7,8]:[8,7,6,5,4,3,2,1];
+ const legal=selected?c.moves({square:selected,verbose:true}):[],selectedPiece=selected?c.get(selected):undefined;
+ function attempt(from:Square,to:Square){const moves=c.moves({square:from,verbose:true}).filter(m=>m.to===to);if(!moves.length)return false;if(moves.some(m=>m.promotion)){setPromotion({from,to});return true;}if(appearance.sounds)enableSounds();onMove(from+to);setSelected(null);return true;}
+ function click(s:Square){if(disabled||drawMode)return;if(selected&&attempt(selected,s))return;const p=c.get(s);setSelected(p&&p.color===c.turn()?s:null);}
+ function pointed(clientX:number,clientY:number):Square|null{const r=surface.current?.getBoundingClientRect();if(!r)return null;const x=Math.floor((clientX-r.left)/r.width*8),y=Math.floor((clientY-r.top)/r.height*8);if(x<0||x>7||y<0||y>7)return null;return (files[x]+ranks[y]) as Square;}
+ function finishDrawing(e:React.PointerEvent){if(!drawing.current)return;const to=pointed(e.clientX,e.clientY),from=drawing.current;drawing.current=null;setDraft(null);if(to===from)setCircles(all=>all.includes(to)?all.filter(s=>s!==to):[...all,to]);else if(to)setArrows(all=>all.some(a=>a.from===from&&a.to===to)?all.filter(a=>a.from!==from||a.to!==to):[...all,{from,to}]);if(surface.current?.hasPointerCapture(e.pointerId))surface.current.releasePointerCapture(e.pointerId);}
+ const hintFrom=hintLevel>=2&&hintMove?hintMove.slice(0,2):undefined;
+ const king=c.isCheck()?c.board().flat().find(p=>p?.type==='k'&&p.color===c.turn())?.square:undefined;
+ const drawn=[...arrows,...(draft&&draft.from!==draft.to?[draft]:[])];
+ function arrow(a:BoardArrow,key:string,isHint=false){const from=squareCenter(a.from,flipped),to=squareCenter(a.to,flipped),dx=to.x-from.x,dy=to.y-from.y,len=Math.hypot(dx,dy);if(!len)return null;return <line key={key} className={isHint?'hint-arrow':'study-arrow'} data-from={a.from} data-to={a.to} x1={from.x} y1={from.y} x2={to.x-dx/len*.12} y2={to.y-dy/len*.12} markerEnd={`url(#${marker}-${isHint?'hint':'study'})`}/>;}
+ return <div className="board-interactive" data-motion={appearance.animations?'on':'off'}>
+ <div className="board-wrap"><div ref={surface} className={`board-surface ${drawMode?'drawing-mode':''}`} onContextMenu={e=>e.preventDefault()} onPointerMove={e=>{if(drawing.current){const to=pointed(e.clientX,e.clientY);if(to)setDraft({from:drawing.current,to});}}} onPointerUp={finishDrawing} onPointerCancel={()=>{drawing.current=null;setDraft(null);}} onKeyDown={e=>{if(e.key==='Escape'){setSelected(null);setDrawMode(false);setArrows([]);setCircles([]);}}}>
+ <div className="chessboard" role="group" aria-label="Chess board">{ranks.flatMap((rank,ri)=>[...files].map((file,fi)=>{const s=(file+rank) as Square,p=c.get(s),target=legal.some(m=>m.to===s),dark=(file.charCodeAt(0)-97+rank)%2===1,travelling=motion?.fen===fen?motion.moves.find(m=>m.to===s):undefined;const from=travelling?squareCenter(travelling.from,flipped):null,to=squareCenter(s,flipped);return <button key={s} data-square={s} aria-label={`${s}${p?` ${p.color==='w'?'White':'Black'} ${names[p.type]}`:''}`} aria-pressed={selected===s} className={`square ${dark?'dark':'light'} ${selected===s?'selected':''} ${last&&(last.slice(0,2)===s||last.slice(2,4)===s)?'last':''} ${marked.includes(s)?'marked':''} ${hintFrom===s?'hint-source':''} ${king===s?'in-check':''} ${travelling?'moving-square':''}`} onClick={()=>click(s)} onPointerDown={e=>{if(e.button===2||(drawMode&&e.button===0)){e.preventDefault();drawing.current=s;setDraft({from:s,to:s});surface.current?.setPointerCapture(e.pointerId);}}} onDragOver={e=>{if(!disabled&&!drawMode)e.preventDefault();}} onDrop={e=>{e.preventDefault();const from=e.dataTransfer.getData('text/plain') as Square;if(!disabled&&!drawMode&&/^[a-h][1-8]$/.test(from))attempt(from,s);}}>{fi===0&&<span className="rank">{rank}</span>}{ri===7&&<span className="file">{file}</span>}{p&&<span key={`${fen}-${s}`} className={`piece-drag ${travelling?'piece-moving':''}`} style={from?{'--move-x':`${(from.x-to.x)*100/.88}%`,'--move-y':`${(from.y-to.y)*100/.88}%` } as CSSProperties:undefined} draggable={!disabled&&!drawMode&&p.color===c.turn()} onDragStart={e=>{e.dataTransfer.setData('text/plain',s);setSelected(s);}}><Piece type={p.type} color={p.color}/></span>}{target&&<span className={`target ${p?'capture':''}`}/>}</button>;}))}</div>
+ <svg className="board-annotations" viewBox="0 0 8 8" aria-hidden="true"><defs><marker id={`${marker}-study`} markerWidth="3.4" markerHeight="3.4" refX="2" refY="1.7" orient="auto"><path d="M0 0L3 1.7 0 3.4z" fill="var(--arrow-color, #dcae56)"/></marker><marker id={`${marker}-hint`} markerWidth="3.4" markerHeight="3.4" refX="2" refY="1.7" orient="auto"><path d="M0 0L3 1.7 0 3.4z" fill="var(--hint-color, #42bba6)"/></marker></defs>{circles.map(s=>{const p=squareCenter(s,flipped);return <circle key={s} data-marked-square={s} className="study-circle" cx={p.x} cy={p.y} r=".39"/>;})}{drawn.map((a,i)=>arrow(a,String(i)))}{hintLevel>=3&&hintMove&&arrow({from:hintMove.slice(0,2) as Square,to:hintMove.slice(2,4) as Square},'hint',true)}</svg>
+ </div>{promotion&&<div className="promotion" role="dialog" aria-label="Choose promotion"><strong>Promote your pawn</strong><div>{(['q','r','b','n'] as PieceSymbol[]).map(type=><button key={type} aria-label={`Promote to ${names[type]}`} onClick={()=>{if(appearance.sounds)enableSounds();onMove(promotion.from+promotion.to+type);setPromotion(null);setSelected(null);}}><Piece type={type} color={c.turn()}/></button>)}</div><button onClick={()=>setPromotion(null)}>Cancel</button></div>}</div>
+ <div className="annotation-tools"><button aria-pressed={drawMode} className={drawMode?'is-on':''} onClick={()=>{setDrawMode(!drawMode);setSelected(null);}}>↗ {drawMode?'Drawing arrows':'Draw arrows'}</button><button disabled={!arrows.length&&!circles.length} onClick={()=>{setArrows([]);setCircles([]);}}>Clear markings</button><span>{drawMode?'Drag an arrow · tap to circle':'Or right-drag on the board'}</span></div>
+ <div className="board-insight" aria-live="polite">{drawMode?'Sketch your plan. Draw the same arrow again to remove it.':selectedPiece&&selected?`${names[selectedPiece.type][0].toUpperCase()+names[selectedPiece.type].slice(1)} on ${selected} · ${legal.length} legal destination${legal.length===1?'':'s'}. Choose a glowing square.`:king?'Check. Your next move must protect your king.':hintFrom?'Your coach highlighted a piece to investigate.':marked.length?'Highlighted squares connect to the coach’s explanation.':'Click a piece to explore its legal moves.'}</div>
+ </div>;
+}

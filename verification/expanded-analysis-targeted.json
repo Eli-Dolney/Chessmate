@@ -1,0 +1,48 @@
+[
+  {
+    "id": "french-4",
+    "solution": "exd5",
+    "best": {
+      "best": "e4d5",
+      "score": {
+        "kind": "cp",
+        "value": -34
+      },
+      "depth": 30,
+      "pv": "e4d5 e6d5"
+    },
+    "chosen": {
+      "best": "e4d5",
+      "score": {
+        "kind": "cp",
+        "value": -34
+      },
+      "depth": 30,
+      "pv": "e4d5 e6d5"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "pawn-king-3",
+    "solution": "d5",
+    "best": {
+      "best": "d7d5",
+      "score": {
+        "kind": "cp",
+        "value": 21
+      },
+      "depth": 25,
+      "pv": "d7d5 c4b5"
+    },
+    "chosen": {
+      "best": "d7d5",
+      "score": {
+        "kind": "cp",
+        "value": 21
+      },
+      "depth": 25,
+      "pv": "d7d5 c4b5"
+    },
+    "lossCp": 0
+  }
+]

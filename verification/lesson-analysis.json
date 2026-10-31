@@ -1,0 +1,566 @@
+[
+  {
+    "id": "italian-1",
+    "solution": "Nf3",
+    "best": {
+      "best": "g1f3",
+      "score": {
+        "kind": "cp",
+        "value": 31
+      },
+      "depth": 22,
+      "pv": "g1f3 b8c6"
+    },
+    "chosen": {
+      "best": "g1f3",
+      "score": {
+        "kind": "cp",
+        "value": 31
+      },
+      "depth": 22,
+      "pv": "g1f3 b8c6"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "italian-2",
+    "solution": "Bc4",
+    "best": {
+      "best": "f1b5",
+      "score": {
+        "kind": "cp",
+        "value": 38
+      },
+      "depth": 21,
+      "pv": "f1b5 a7a6 b5a4 g8f6 e1g1 f6e4 d2d4 b7b5 a4b3 d7d5 d4e5 c8e6 c2c3 f8e7 h2h3 e8g8 b3c2 e6f5 b1d2 e7c5"
+    },
+    "chosen": {
+      "best": "f1c4",
+      "score": {
+        "kind": "cp",
+        "value": 27
+      },
+      "depth": 22,
+      "pv": "f1c4 g8f6"
+    },
+    "lossCp": 11
+  },
+  {
+    "id": "italian-3",
+    "solution": "c3",
+    "best": {
+      "best": "c2c3",
+      "score": {
+        "kind": "cp",
+        "value": 23
+      },
+      "depth": 22,
+      "pv": "c2c3"
+    },
+    "chosen": {
+      "best": "c2c3",
+      "score": {
+        "kind": "cp",
+        "value": 23
+      },
+      "depth": 22,
+      "pv": "c2c3"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "italian-4",
+    "solution": "d3",
+    "best": {
+      "best": "d2d3",
+      "score": {
+        "kind": "cp",
+        "value": 24
+      },
+      "depth": 24,
+      "pv": "d2d3 d7d6"
+    },
+    "chosen": {
+      "best": "d2d3",
+      "score": {
+        "kind": "cp",
+        "value": 24
+      },
+      "depth": 24,
+      "pv": "d2d3 d7d6"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "italian-5",
+    "solution": "O-O",
+    "best": {
+      "best": "c2c3",
+      "score": {
+        "kind": "cp",
+        "value": 27
+      },
+      "depth": 23,
+      "pv": "c2c3 e8g8 e1g1 d7d6 b1d2 a7a6 a2a4 c5a7 h2h3 h7h6 b2b4 d8e8 c4b3 c8e6 b3c2 f6h5 b4b5 c6e7 d3d4"
+    },
+    "chosen": {
+      "best": "e1g1",
+      "score": {
+        "kind": "cp",
+        "value": 21
+      },
+      "depth": 26,
+      "pv": "e1g1"
+    },
+    "lossCp": 6
+  },
+  {
+    "id": "italian-6",
+    "solution": "cxd4",
+    "best": {
+      "best": "c3d4",
+      "score": {
+        "kind": "cp",
+        "value": 5
+      },
+      "depth": 23,
+      "pv": "c3d4 c5b4"
+    },
+    "chosen": {
+      "best": "c3d4",
+      "score": {
+        "kind": "cp",
+        "value": 5
+      },
+      "depth": 23,
+      "pv": "c3d4 c5b4"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "italian-7",
+    "solution": "Nxd4",
+    "best": {
+      "best": "f3d4",
+      "score": {
+        "kind": "cp",
+        "value": 104
+      },
+      "depth": 25,
+      "pv": "f3d4 e5d4"
+    },
+    "chosen": {
+      "best": "f3d4",
+      "score": {
+        "kind": "cp",
+        "value": 104
+      },
+      "depth": 25,
+      "pv": "f3d4 e5d4"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "italian-8",
+    "solution": "O-O",
+    "best": {
+      "best": "c1g5",
+      "score": {
+        "kind": "cp",
+        "value": 41
+      },
+      "depth": 24,
+      "pv": "c1g5"
+    },
+    "chosen": {
+      "best": "e1g1",
+      "score": {
+        "kind": "cp",
+        "value": 37
+      },
+      "depth": 28,
+      "pv": "e1g1 d7d6 c2c3 a7a6 b2b4 c5a7 a2a4 g8e7 h2h3 c8d7 c1g5 f6g6 g1h1 c6d8 g5e7 e8e7 d3d4 d8e6 d4e5 e6f4 e5d6 c7d6 f3h4 g6g5"
+    },
+    "lossCp": 4
+  },
+  {
+    "id": "caro-1",
+    "solution": "d5",
+    "best": {
+      "best": "d7d5",
+      "score": {
+        "kind": "cp",
+        "value": -39
+      },
+      "depth": 22,
+      "pv": "d7d5 e4e5"
+    },
+    "chosen": {
+      "best": "d7d5",
+      "score": {
+        "kind": "cp",
+        "value": -39
+      },
+      "depth": 22,
+      "pv": "d7d5 e4e5"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "caro-2",
+    "solution": "Bf5",
+    "best": {
+      "best": "c8f5",
+      "score": {
+        "kind": "cp",
+        "value": -36
+      },
+      "depth": 22,
+      "pv": "c8f5 g1f3 e7e6 b1c3 c6c5 f1b5 b8d7 e1g1 a7a6 c1g5 f8e7 b5d7 d8d7 d4c5 e7c5 f3h4 h7h6 g5e3 c5e3 h4f5 e6f5 d1d5"
+    },
+    "chosen": {
+      "best": "c8f5",
+      "score": {
+        "kind": "cp",
+        "value": -36
+      },
+      "depth": 22,
+      "pv": "c8f5 g1f3 e7e6 b1c3 c6c5 f1b5 b8d7 e1g1 a7a6 c1g5 f8e7 b5d7 d8d7 d4c5 e7c5 f3h4 h7h6 g5e3 c5e3 h4f5 e6f5 d1d5"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "caro-3",
+    "solution": "cxd5",
+    "best": {
+      "best": "c6d5",
+      "score": {
+        "kind": "cp",
+        "value": -19
+      },
+      "depth": 23,
+      "pv": "c6d5"
+    },
+    "chosen": {
+      "best": "c6d5",
+      "score": {
+        "kind": "cp",
+        "value": -19
+      },
+      "depth": 23,
+      "pv": "c6d5"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "caro-4",
+    "solution": "dxe4",
+    "best": {
+      "best": "d5e4",
+      "score": {
+        "kind": "cp",
+        "value": -32
+      },
+      "depth": 24,
+      "pv": "d5e4"
+    },
+    "chosen": {
+      "best": "d5e4",
+      "score": {
+        "kind": "cp",
+        "value": -32
+      },
+      "depth": 24,
+      "pv": "d5e4"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "caro-5",
+    "solution": "Bf5",
+    "best": {
+      "best": "g8f6",
+      "score": {
+        "kind": "cp",
+        "value": -35
+      },
+      "depth": 23,
+      "pv": "g8f6 e4f6"
+    },
+    "chosen": {
+      "best": "c8f5",
+      "score": {
+        "kind": "cp",
+        "value": -36
+      },
+      "depth": 23,
+      "pv": "c8f5"
+    },
+    "lossCp": 1
+  },
+  {
+    "id": "caro-6",
+    "solution": "Bg6",
+    "best": {
+      "best": "f5g6",
+      "score": {
+        "kind": "cp",
+        "value": -43
+      },
+      "depth": 28,
+      "pv": "f5g6 h2h4 h7h6 g1f3 b8d7 h4h5 g6h7 f1d3 h7d3 d1d3 g8f6 c1f4 e7e6 e1c1 f8e7 c1b1 e8g8 g3e4 f6e4 d3e4 d7f6 e4e2 d8d5 f3e5 d5e4 e2e4 f6e4 h1e1 e4f6 g2g4 f8d8 c2c3 d8e8"
+    },
+    "chosen": {
+      "best": "f5g6",
+      "score": {
+        "kind": "cp",
+        "value": -43
+      },
+      "depth": 28,
+      "pv": "f5g6 h2h4 h7h6 g1f3 b8d7 h4h5 g6h7 f1d3 h7d3 d1d3 g8f6 c1f4 e7e6 e1c1 f8e7 c1b1 e8g8 g3e4 f6e4 d3e4 d7f6 e4e2 d8d5 f3e5 d5e4 e2e4 f6e4 h1e1 e4f6 g2g4 f8d8 c2c3 d8e8"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "caro-7",
+    "solution": "e6",
+    "best": {
+      "best": "e7e6",
+      "score": {
+        "kind": "cp",
+        "value": -27
+      },
+      "depth": 21,
+      "pv": "e7e6 f1e2 c6c5 e1g1 b8c6 c2c3 f5g4 c1g5 f8e7 g5e3 c5d4 c3d4 e7b4 b1c3"
+    },
+    "chosen": {
+      "best": "e7e6",
+      "score": {
+        "kind": "cp",
+        "value": -27
+      },
+      "depth": 21,
+      "pv": "e7e6 f1e2 c6c5 e1g1 b8c6 c2c3 f5g4 c1g5 f8e7 g5e3 c5d4 c3d4 e7b4 b1c3"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "caro-8",
+    "solution": "c5",
+    "best": {
+      "best": "c6c5",
+      "score": {
+        "kind": "cp",
+        "value": -25
+      },
+      "depth": 22,
+      "pv": "c6c5 e1g1"
+    },
+    "chosen": {
+      "best": "c6c5",
+      "score": {
+        "kind": "cp",
+        "value": -25
+      },
+      "depth": 22,
+      "pv": "c6c5 e1g1"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "qgd-1",
+    "solution": "e6",
+    "best": {
+      "best": "c7c6",
+      "score": {
+        "kind": "cp",
+        "value": -29
+      },
+      "depth": 21,
+      "pv": "c7c6 c4d5"
+    },
+    "chosen": {
+      "best": "e7e6",
+      "score": {
+        "kind": "cp",
+        "value": -26
+      },
+      "depth": 24,
+      "pv": "e7e6 b1c3 g8f6 c4d5 e6d5 c1g5 c7c6 e2e3 h7h6 g5h4 f8e7 f1d3 e8g8 g1e2 f8e8 e1g1 b8d7 f1e1 f6h5 h4e7 d8e7 a1c1 d7f8"
+    },
+    "lossCp": -3
+  },
+  {
+    "id": "qgd-2",
+    "solution": "Nf6",
+    "best": {
+      "best": "g8f6",
+      "score": {
+        "kind": "cp",
+        "value": -27
+      },
+      "depth": 25,
+      "pv": "g8f6"
+    },
+    "chosen": {
+      "best": "g8f6",
+      "score": {
+        "kind": "cp",
+        "value": -27
+      },
+      "depth": 25,
+      "pv": "g8f6"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "qgd-3",
+    "solution": "Be7",
+    "best": {
+      "best": "f8e7",
+      "score": {
+        "kind": "cp",
+        "value": -26
+      },
+      "depth": 27,
+      "pv": "f8e7 e2e3 e8g8 g1f3 h7h6 g5f6 e7f6 a1c1 g7g6 f1d3 d5c4 d3c4 b8d7 e1g1 c7c5 d4c5 d7c5 d1c2 d8a5 a2a3 f6c3 c2c3 a5c3 c1c3 c5e4"
+    },
+    "chosen": {
+      "best": "f8e7",
+      "score": {
+        "kind": "cp",
+        "value": -26
+      },
+      "depth": 27,
+      "pv": "f8e7 e2e3 e8g8 g1f3 h7h6 g5f6 e7f6 a1c1 g7g6 f1d3 d5c4 d3c4 b8d7 e1g1 c7c5 d4c5 d7c5 d1c2 d8a5 a2a3 f6c3 c2c3 a5c3 c1c3 c5e4"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "qgd-4",
+    "solution": "O-O",
+    "best": {
+      "best": "h7h6",
+      "score": {
+        "kind": "cp",
+        "value": -20
+      },
+      "depth": 23,
+      "pv": "h7h6"
+    },
+    "chosen": {
+      "best": "e8g8",
+      "score": {
+        "kind": "cp",
+        "value": -26
+      },
+      "depth": 22,
+      "pv": "e8g8 g1f3"
+    },
+    "lossCp": 6
+  },
+  {
+    "id": "qgd-5",
+    "solution": "Nbd7",
+    "best": {
+      "best": "h7h6",
+      "score": {
+        "kind": "cp",
+        "value": -26
+      },
+      "depth": 24,
+      "pv": "h7h6 g5f6"
+    },
+    "chosen": {
+      "best": "b8d7",
+      "score": {
+        "kind": "cp",
+        "value": -33
+      },
+      "depth": 22,
+      "pv": "b8d7 d1c2"
+    },
+    "lossCp": 7
+  },
+  {
+    "id": "qgd-6",
+    "solution": "c5",
+    "best": {
+      "best": "d5c4",
+      "score": {
+        "kind": "cp",
+        "value": -20
+      },
+      "depth": 21,
+      "pv": "d5c4 d3c4"
+    },
+    "chosen": {
+      "best": "c7c5",
+      "score": {
+        "kind": "cp",
+        "value": -35
+      },
+      "depth": 24,
+      "pv": "c7c5 c4d5 f6d5 g5e7 d5e7 e1g1 c5d4 f3d4 d7f6 a1c1 h7h6 h2h3 e7d5 d1f3 d5c3 c1c3 d8a5 d3b1 a8b8 f3g3 c8d7 f1d1 e6e5 d4f3"
+    },
+    "lossCp": 15
+  },
+  {
+    "id": "qgd-7",
+    "solution": "exd5",
+    "best": {
+      "best": "e6d5",
+      "score": {
+        "kind": "cp",
+        "value": -27
+      },
+      "depth": 26,
+      "pv": "e6d5 c1g5"
+    },
+    "chosen": {
+      "best": "e6d5",
+      "score": {
+        "kind": "cp",
+        "value": -27
+      },
+      "depth": 26,
+      "pv": "e6d5 c1g5"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "qgd-8",
+    "solution": "Nxd5",
+    "best": {
+      "best": "f6d5",
+      "score": {
+        "kind": "cp",
+        "value": 347
+      },
+      "depth": 24,
+      "pv": "f6d5 g5d2 d7f6 f2f3 d5b6 e2e4 d8d4 g1e2 d4d6 e2f4 c8e6 a2a4 a7a5 d1c2 d6c5 c2d1 c7c6 f4e6 f7e6 a1c1 c5e5 d1c2 e8c8"
+    },
+    "chosen": {
+      "best": "f6d5",
+      "score": {
+        "kind": "cp",
+        "value": 347
+      },
+      "depth": 24,
+      "pv": "f6d5 g5d2 d7f6 f2f3 d5b6 e2e4 d8d4 g1e2 d4d6 e2f4 c8e6 a2a4 a7a5 d1c2 d6c5 c2d1 c7c6 f4e6 f7e6 a1c1 c5e5 d1c2 e8c8"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "shilling-poisoned-capture",
+    "analysis": {
+      "best": "d8g5",
+      "score": {
+        "kind": "cp",
+        "value": 62
+      },
+      "depth": 22,
+      "pv": "d8g5"
+    }
+  }
+]
