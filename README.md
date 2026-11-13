@@ -2,6 +2,12 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.4 — a room of your own
+
+Style studio now has eight boards and six piece sets, with a large live preview. New boards: **Ember**, **Deep Sea**, **Walnut**, and **Neon**. New pieces: **Porcelain** (distinct sculpted shapes), **Gilded**, and **Neon**. All artwork and materials are original SVG/CSS and work offline.
+
+Changing boards now keeps your chosen pieces. Use **Use matching pieces** for the board's recommended pairing, or mix freely. **Reset appearance** restores Nebula/Galaxy, smooth moves on, and sounds off. Saved games and learning progress are unaffected. Existing appearance settings and backups remain supported; backup schema stays version 3.
+
 ## New in 1.3 — understand, practice, review
 
 - **Coach assistance** now leads with What changed?, Check this threat, and Consider this plan. Click attacker, target, or defender labels to highlight the corresponding square; use Clear coach highlights to remove them. A legal recapture is not proof that a capture is safe.

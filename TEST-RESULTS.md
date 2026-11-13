@@ -1,5 +1,12 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.4.0 — themes and Style studio
+
+- Production build and all **213 unit tests passed**.
+- **Seven targeted Edge browser scenarios passed**: all existing styles, independent piece selection, new materials, matching/reset controls, saved legacy games and preferences, arrows/circles, hints, movement/reduced motion, desktop/mobile layouts, and a complete offline close/reopen session.
+- Inspected desktop studio, Deep Sea/Porcelain board, and narrow-screen screenshots. Corrected preview grid row sizing so empty and occupied squares have equal dimensions; reran the affected material scenario.
+- Eight board themes and six piece finishes are bundled as original local CSS/SVG. Porcelain has distinct silhouettes. No remote artwork, dependencies, or changes to game rules were introduced. Existing appearance IDs, backup schema 3, and Windows/Mac launchers are retained.
+
 ## Chessmate 1.3.0 — understand, practice, review
 
 - Windows Setup completed a clean `npm ci` using the pinned project-local Node runtime, then the TypeScript/Vite production build passed. System Node was unchanged.
