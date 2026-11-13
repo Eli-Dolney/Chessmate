@@ -1,7 +1,7 @@
 import type { Color } from 'chess.js';
 import type { Appearance } from './appearance';
 export type Difficulty = 'Gentle' | 'Steady' | 'Challenging';
-export interface CoachPreferences { enabled:boolean; threats:boolean; openings:boolean; plans:boolean; suggestions:boolean }
+export interface CoachPreferences { lineCommentary?:boolean; enabled:boolean; threats:boolean; openings:boolean; plans:boolean; suggestions:boolean }
 export interface Settings { color: Color; difficulty: Difficulty; flipped: boolean; appearance:Appearance; coach:CoachPreferences }
 export interface PositionHistory { initialFen:string; moves:string[] }
 export interface ExplorationBranch { id:string; label:string; moves:string[] }

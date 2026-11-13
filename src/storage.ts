@@ -25,6 +25,7 @@ export function validateBackup(input:unknown):AppData {
  for(const g of [d.current,...d.games]){assert(g&&typeof g.id==='string'&&Array.isArray(g.moves)&&g.moves.length<=2000&&['w','b'].includes(g.player)&&['Gentle','Steady','Challenging'].includes(g.difficulty)&&typeof g.pending==='boolean'&&validDate(g.created)&&validDate(g.updated)&&Array.isArray(g.moments),'Invalid game record.');replay(g);g.moments.forEach(validateMoment);}
  d.practice.forEach(validatePractice);
  assert(d.settings.coach&&Object.keys(defaultCoach).every(k=>typeof d.settings.coach[k as keyof typeof defaultCoach]==='boolean'),'Invalid coach settings.');
+ assert(d.settings.coach.lineCommentary===undefined||typeof d.settings.coach.lineCommentary==='boolean','Invalid line coach setting.');
  assert(Array.isArray(d.explorations)&&d.explorations.length<=1000,'Invalid explorations.');
  const ids=new Set<string>();for(const s of d.explorations){validateStudy(s);assert(!ids.has(s.id),'Duplicate exploration.');ids.add(s.id);}
  assert(d.activeExplorationId===null||ids.has(d.activeExplorationId),'Invalid active exploration.');

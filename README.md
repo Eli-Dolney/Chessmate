@@ -2,6 +2,14 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.8 — a coach for every move in the line
+
+**Your line coach** appears beside the board during exploration. With **Explain each move** enabled, it follows automatic playback, manual steps, and branch changes. For the selected move, it shows **What changed**, a **Possible purpose**, separate possible plans for White and Black, and the next reply in the saved line. Expand each side's saved continuation for more detail about its upcoming move. Terminal positions explain the result instead of inventing another plan.
+
+Board facts come from the current legal position and full move history. Purposes and setup ideas are conditional advice; a saved continuation may come from the engine or your own exploration and is not described as a forced prediction. No chatbot or additional installation is required, and commentary makes no remote requests or extra engine searches.
+
+Playback now starts at **Coach pace · 6s**. Choose another speed above the board or select **Pause to read**. Clicking **Show … on board** pauses playback and highlights relevant squares in either 2D or 3D. Navigation clears previous markings immediately. **Clear coach markings** removes the highlights. The independent **Explain each move** toggle is remembered and included in backups; older saves default to enabled. Your live game and pending move remain unchanged. Backup version and launchers stay the same.
+
 ## New in 1.7 — play out the possibilities
 
 In exploration, choose **Play out 5 moves** or **Play out 10 moves** above the board. In the original-move comparison panel, the same buttons appear separately for **Original** and **Alternative**, even before requesting an explanation. Each choice builds up to 10 or 20 half-moves from the decision position (five or ten moves per side, including the starting move). Existing moves in the selected line are retained; the full-strength local engine extends short lines using complete position history. The line stops early for mate, stalemate, repetition, or another game-ending condition. These are possible continuations, not guaranteed predictions.

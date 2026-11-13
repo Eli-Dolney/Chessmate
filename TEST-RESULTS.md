@@ -1,5 +1,14 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.8.0 — move-by-move line coach
+
+- Production build and **274 unit tests passed**. Fifteen new commentary tests cover both colors, development/central pawns, castling/checks, forks/pins, risky captures, pinned defenders, en passant's actual removed square, mate/repetition with full history, terminal starting positions, branch changes, and current-position-safe highlights.
+- **13 distinct targeted Edge browser scenarios passed** across coaching, longer playback, and appearance. One new test initially expected the literal word “develop”; the UI correctly described bringing a piece off the back rank. After fixing that wording assertion, its branch/highlight scenario passed. Unrelated full curriculum, review, and guided-practice browser suites were not repeated.
+- Verified automatic commentary in 3D without remote requests, White/Black explanations, manual next/previous and branch changes, paused highlighting, immediate removal of stale markings, six-second coach pace and faster options, mobile width, and unchanged pending live game on return.
+- Verified the independent commentary toggle after reload and JSON backup restoration. Older saves default to commentary enabled; the optional preference is validated without changing backup schema 3 or browser origin.
+- Visually inspected the line coach beside the 3D board at 1920 × 1080. Future saved-line details are expandable, and board facts are separated from conditional purposes and plans. Commentary uses synchronous board inspection and saved history, with no added engine searches or online dependency.
+- Windows installed build verified on the existing fixed origin. Separate launchers are unchanged; actual M4/macOS execution remains unverified.
+
 ## Chessmate 1.7.0 — longer line playback
 
 - Production build and **259 unit tests passed**. The 13 new continuation tests verify 10/20-ply limits, extending short PVs with complete history, unchanged input records, legal replay, mate/stalemate/insufficient-material and repetition stops, promotion, cancellation, and rejected missing/illegal/stale results.
