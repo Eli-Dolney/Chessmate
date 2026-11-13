@@ -1,5 +1,15 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.6.0 — 3D table and original-move comparison
+
+- Production build and **246 unit tests passed**. New checks cover retained original branches, backup round-trip, invalid original references, optional 3D preferences, score comparisons, and position-matched reply arrows.
+- **36 distinct targeted Edge browser scenarios passed** across two runs (14 exploration/comparison scenarios, then 26 final-layout, 3D, appearance, chess-rule, and offline scenarios, with four overlapping comparisons). Existing guided-practice and review suites were unchanged and were not rerun in this pass.
+- Verified comparison of two full-history searches, original/alternative arrows after flipping, clickable replies in either line, stale-search cancellation, restoring the pending original, branch persistence after reopening, and applying only the first alternative move.
+- Verified real 3D square picking for both colors, camera controls and keyboard controls, drag-to-orbit without a chess move, zoom/reset, legal moves, underpromotion, 2D/3D switching, persisted view, mobile width, and graphics-context interruption with a flat-board fallback. The 3D/comparison session made no non-local requests.
+- Regression coverage includes all 96 lesson answers through the UI, castling, en passant, underpromotion, repetition, mate/stalemate, imports/backups, engine restart, all appearance choices, reduced motion, and a real browser close/reopen offline session.
+- Visually inspected the rendered 3D table and adjacent comparison controls at 1600 × 1100. Rendering is demand-driven, with no perpetual animation loop. Three.js, procedural geometry/textures, engine, and licenses are served locally.
+- Actual macOS/M4 execution remains unverified. The unchanged separate Mac launchers are included; 3D requires browser WebGL support and has a flat-board fallback.
+
 ## Chessmate 1.5.0 — responsive workspace and focused practice
 
 - Production build and **241 unit tests passed**, covering all 96 authored solutions and variations, focused selection for every opening/situation, due-item ordering, session labels and backup round-trip, legal starting diagrams, mate-in-one claims, and queen-promotion stalemates.

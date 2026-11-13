@@ -41,7 +41,19 @@ export function applicableMove(study:Exploration,game:GameSession):string|undefi
 export function validateStudy(s:Exploration){
  if(!s||typeof s.id!=='string'||typeof s.label!=='string'||!s.root||!Array.isArray(s.root.moves)||s.root.moves.length>2000||!Array.isArray(s.branches)||!s.branches.length||s.branches.length>200)throw new Error('Invalid exploration.');
  const root=replay(s.root),ids=new Set<string>();
+ if(s.originalMove!==undefined){if(typeof s.originalMove!=='string'||!s.branches.some(b=>b.moves?.[0]===s.originalMove))throw new Error('Invalid original move.');uciMove(replay(s.root),s.originalMove);}
  for(const b of s.branches){if(!b||typeof b.id!=='string'||ids.has(b.id)||typeof b.label!=='string'||!Array.isArray(b.moves)||b.moves.length>2000)throw new Error('Invalid exploration branch.');ids.add(b.id);const c=new Chess(root.fen());for(const m of b.moves)uciMove(c,m);}
  const branch=branchOf(s);if(!branch||!Number.isInteger(s.step)||s.step<0||s.step>branch.moves.length)throw new Error('Invalid exploration cursor.');
  if(s.source&&(typeof s.source.gameId!=='string'||!Array.isArray(s.source.prefix)||s.source.prefix.join(' ')!==s.root.moves.join(' ')))throw new Error('Invalid exploration origin.');
 }
+
+// Retain the actual pending move, even when entering a suggested continuation.
+export function rememberOriginal(study:Exploration,move:string):Exploration {
+ uciMove(replay(study.root),move);
+ const existing=study.branches.find(b=>b.moves[0]===move);
+ if(existing)return {...study,originalMove:move,branches:study.branches.map(b=>b.id===existing.id?{...b,label:'Original move'}:b)};
+ const original={id:crypto.randomUUID(),label:'Original move',moves:[move]};
+ const empty=study.branches.length===1&&!study.branches[0].moves.length;
+ return {...study,originalMove:move,branches:empty?[original]:[original,...study.branches],branchId:empty?original.id:study.branchId};
+}
+export function decisionKey(study:Exploration){return JSON.stringify([study.id,study.root,study.originalMove]);}

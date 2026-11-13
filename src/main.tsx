@@ -6,3 +6,6 @@ import './learning.css';
 createRoot(document.getElementById('root')!).render(<App/>);
 import './studio.css';
 import './responsive.css';
+
+import './comparison.css';
+import './scene.css';

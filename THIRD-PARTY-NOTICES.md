@@ -18,3 +18,5 @@ Lichess chess-openings, CC0-1.0 public domain dedication. Source: https://github
 Pinned revision: `712a58be746c143f4ab935b68acc50f4bac813eb`.
 The original five TSV files, COPYING.txt, README.md and revision are in `vendor/chess-openings`. `npm run build:openings` validates every line and regenerates `src/data/openings.json` using chess.js.
 This catalog supplies names and reference moves; all coaching and lesson explanations are original. No opening win rates or frequency statistics are bundled.
+
+- Three.js **0.187.0**, MIT: https://github.com/mrdoob/three.js . License: `public/licenses/three.txt`. OrbitControls and the renderer are bundled locally. The procedural 3D chess models, canvas textures, and scene design are original GPL-3.0-only application assets. Implementation references: https://threejs.org/docs/pages/OrbitControls.html and https://threejs.org/docs/pages/Raycaster.html .

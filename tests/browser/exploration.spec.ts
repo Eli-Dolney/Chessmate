@@ -19,7 +19,7 @@ test('exploration controls work by keyboard and fit narrow screens',async({page}
 test('free play branches, survives reload, and returns to the unchanged pending game',async({page})=>{
  const d=defaults();d.current.moves=['e2e4'];d.current.pending=true;await restore(page,d);
  await page.getByRole('button',{name:'Try a different move',exact:true}).click();await expect(page.locator('[data-square=e2]')).toHaveAttribute('aria-label','e2 White pawn');
- await move(page,'d2','d4');await move(page,'d7','d5');await page.getByRole('button',{name:'Previous',exact:false}).click();await move(page,'g8','f6');await expect(page.getByLabel('Saved alternatives').locator('option')).toHaveCount(2);
+ await move(page,'d2','d4');await move(page,'d7','d5');await page.getByRole('button',{name:'Previous',exact:false}).click();await move(page,'g8','f6');await expect(page.getByLabel('Saved alternatives').locator('option')).toHaveCount(3);
  await page.reload();await expect(page.locator('.explore-banner')).toBeVisible();await expect(page.locator('[data-square=f6]')).toHaveAttribute('aria-label','f6 Black knight');await expect(page.locator('.move-pair button')).toHaveCount(1);
  await page.getByRole('button',{name:'Return to game'}).click();await expect(page.locator('[data-square=e4]')).toHaveAttribute('aria-label','e4 White pawn');await expect(page.getByRole('button',{name:'Let the computer reply'})).toBeVisible();
  await page.getByRole('button',{name:'Your library'}).click();await page.getByRole('button',{name:'Resume exploration'}).click();await expect(page.locator('[data-square=f6]')).toHaveAttribute('aria-label','f6 Black knight');

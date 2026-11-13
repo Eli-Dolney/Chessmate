@@ -2,6 +2,14 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.6 — a real table and remembered moves
+
+Choose **3D · Table view** above the board for a locally rendered scene with sculpted pieces, board materials, lighting, and shadows. Drag to orbit, scroll or pinch to zoom, or use the camera buttons. With the canvas focused, arrow keys rotate, +/− zoom, and Home resets. **Flip board** also resets the camera for your color. Click a piece and then a destination to move; legal highlights and promotion work in both views. Choose **2D · Flat board** for keyboard square navigation or manual arrows. The view choice is included in backups and survives reopening. No remote models, textures, or fonts are needed. WebGL failure offers a flat-board fallback; actual M4/macOS graphics testing remains unverified.
+
+After a pending move, choose **Try a different move** (or **Compare with…**). Your original is retained as a saved branch. Play an alternative, then select **Explain the difference** in the coach panel for two local searches with full position history. **Show both move arrows** returns to the decision position: gold is your original and aqua is the alternative. Click moves in either calculated line to inspect the position and a pink possible reply arrow. Scores are approximate; close searches are not called a clear improvement.
+
+**Play this alternative** applies only the selected branch's first move through normal coaching. **Keep my original move** returns to the untouched pending game. Hypothetical replies never become actual game moves. Branches and the original reference survive reopening and JSON backup; comparison analysis can be requested again. Historical exploration cannot rewrite the game. Backup schema remains version 3, with optional fields compatible with existing saves.
+
 ## New in 1.5 — more room, more purposeful practice
 
 The play area now uses the available desktop width. On wide screens, the board grows with the viewport and the coach and move notebook sit side by side. Lessons, review, and the learning library also expand while phone layouts remain stacked.

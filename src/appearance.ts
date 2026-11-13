@@ -1,8 +1,9 @@
 import {createContext} from 'react';
 export type BoardStyle='nebula'|'aurora'|'obsidian'|'classic'|'ember'|'ocean'|'walnut'|'neon';
 export type PieceStyle='galaxy'|'crystal'|'classic'|'porcelain'|'gilded'|'neon';
-export interface Appearance {board:BoardStyle;pieces:PieceStyle;animations:boolean;sounds:boolean}
+export interface Appearance {view?:'2d'|'3d';board:BoardStyle;pieces:PieceStyle;animations:boolean;sounds:boolean}
 export const defaultAppearance:Appearance={board:'nebula',pieces:'galaxy',animations:true,sounds:false};
+export const BoardViewContext=createContext<(view:'2d'|'3d')=>void>(()=>{});
 export const AppearanceContext=createContext<Appearance>(defaultAppearance);
 export const presets:{id:BoardStyle;name:string;subtitle:string;pieces:PieceStyle}[]=[
  {id:'nebula',name:'Nebula Glass',subtitle:'Starlight, violet mist & frosted glass',pieces:'galaxy'},
@@ -19,6 +20,7 @@ export function normalizeAppearance(value:unknown):Appearance{
  if(value===undefined)return {...defaultAppearance};
  if(!value||typeof value!=='object')throw new Error('Invalid appearance settings.');
  const a=value as Appearance;
+ if(a.view!==undefined&&!['2d','3d'].includes(a.view))throw new Error('Invalid board view.');
  if(!presets.some(p=>p.id===a.board)||!pieceStyles.some(p=>p.id===a.pieces)||typeof a.animations!=='boolean'||typeof a.sounds!=='boolean')throw new Error('Invalid appearance settings.');
- return {board:a.board,pieces:a.pieces,animations:a.animations,sounds:a.sounds};
+ return {...(a.view?{view:a.view}:{}),board:a.board,pieces:a.pieces,animations:a.animations,sounds:a.sounds};
 }
