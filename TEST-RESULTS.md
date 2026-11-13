@@ -1,5 +1,14 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.9.0 — adjustable play and coaching
+
+- Production build and **293 unit tests passed**. Nineteen coaching preference tests cover presets, independent options, legacy defaults, nonmutation, versions 1/2/3 backup compatibility, preservation of game state, and rejection of invalid new settings.
+- **19 distinct targeted Edge browser scenarios passed** across five new coaching-control cases, existing exploration and line commentary, and a complete offline close/reopen workflow. Three existing selectors initially collided with the new customization checkbox label; scoped assistance-summary selectors fixed those fixtures, and all affected scenarios passed on rerun. Unrelated full curriculum, review, and guided-practice suites were not repeated.
+- Verified multiple automatic replies, enabling coaching midgame without resetting history, short/long narration, opening-only help without answer/capture panels, independent live commentary, restored preferences, narrow-screen width, and unchanged pending games throughout exploration.
+- Verified mode changes during delayed opponent startup and active coaching searches: cancelled results cannot duplicate moves. Added and passed a regression for choosing automatic play inside a lesson and returning to the saved game, plus restoring a pending backup with automatic replies enabled.
+- Visually inspected Just play, Opening help, and expanded customization. The offline workflow used an isolated browser profile, blocked nonlocal requests, closed/reopened the browser, and recovered the original game and practice progress. User browser storage was not modified by verification.
+- Backup schema 3, IndexedDB name, fixed browser origin, and separate Windows/Mac launchers remain unchanged. Actual macOS/M4 execution remains unverified.
+
 ## Chessmate 1.8.0 — move-by-move line coach
 
 - Production build and **274 unit tests passed**. Fifteen new commentary tests cover both colors, development/central pawns, castling/checks, forks/pins, risky captures, pinned defenders, en passant's actual removed square, mate/repetition with full history, terminal starting positions, branch changes, and current-position-safe highlights.

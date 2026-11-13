@@ -10,3 +10,4 @@ import './responsive.css';
 import './comparison.css';
 import './scene.css';
 import './lineCoach.css';
+import './coachingControls.css';

@@ -2,6 +2,18 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.9 — choose how much coaching you want
+
+Use **Play & coaching** above the board at any point, including halfway through a game:
+
+- **Just play** hides coaching and lets the computer reply automatically.
+- **Opening help** shows recognized opening names and ideas for both sides while play continues.
+- **Full coaching** shows move explanations and planning ideas, and pauses after your moves so you can inspect or retry. Suggested moves still need an explicit reveal.
+
+Open **Customize help** to choose short or longer explanations and independently select opening help, threats, position plans, suggested moves, capture inspection, move commentary, and pausing after your moves. **Your move coach** can explain the live game as well as exploration lines. Its **Longer explanations** checkbox uses the same saved preference: short mode shows the main change and possible purpose; longer mode adds both sides' possible plans and saved-line context where available.
+
+Changing help keeps your game and move history. During exploration or a lesson the live game stays paused; use **Return to game** to resume it with the new settings. Automatic reply modes skip the per-move coaching search; **Analyze game** in review can fill missing analysis later. Preferences survive reopening and JSON backups. Existing saves retain their previous coaching behavior, and backup schema 3, browser origin, local engine, and separate Windows/Mac launchers are unchanged.
+
 ## New in 1.8 — a coach for every move in the line
 
 **Your line coach** appears beside the board during exploration. With **Explain each move** enabled, it follows automatic playback, manual steps, and branch changes. For the selected move, it shows **What changed**, a **Possible purpose**, separate possible plans for White and Black, and the next reply in the saved line. Expand each side's saved continuation for more detail about its upcoming move. Terminal positions explain the result instead of inventing another plan.

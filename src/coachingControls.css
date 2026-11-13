@@ -1,0 +1,16 @@
+.coaching-controls { margin:0 0 18px; padding:16px 18px; border:1px solid var(--border,#ccd7ca); border-radius:14px; background:var(--surface,#fffef8); }
+.coaching-controls-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.coaching-controls-heading strong { font-size:.88rem; }
+.coaching-controls-heading>span { font-size:.72rem; opacity:.65; }
+.coaching-presets { display:flex; flex-wrap:wrap; gap:7px; }
+.coaching-presets button { font-size:.82rem; padding:9px 14px; }
+.coaching-presets button[aria-pressed=true] { color:var(--bg,#fff); background:var(--accent,#285143); border-color:var(--accent,#285143); }
+.coaching-controls p { font-size:.77rem; line-height:1.55; margin:10px 0 0; }
+.coaching-exploration-note { opacity:.75; }
+.coaching-customize { margin-top:12px; padding-top:10px; border-top:1px solid var(--border,#ccd7ca); }
+.coaching-customize summary { cursor:pointer; font-size:.8rem; }
+.coaching-detail-choice { display:flex; flex-wrap:wrap; align-items:center; gap:10px; font-size:.8rem; margin:14px 0; }
+.coaching-detail-choice select { max-width:100%; padding:7px 10px; border-radius:7px; color:var(--ink,#304038); background:var(--surface,#fffef8); border:1px solid var(--border,#ccd7ca); }
+.coaching-option-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr)); gap:12px 18px; }
+.coaching-option-grid label { display:flex; align-items:center; gap:8px; font-size:.8rem; }
+.coaching-option-grid input { accent-color:var(--accent,#285143); }
