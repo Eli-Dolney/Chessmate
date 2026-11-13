@@ -23,3 +23,22 @@
 .move-comparison .button-row { flex-wrap:wrap; justify-content:flex-start; }
 .coach-card>.move-comparison { margin:0; border:0; background:transparent; }
 .coach-card .comparison-cards { grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); }
+.choice-playback { margin:18px 0; padding:14px 0; border-top:1px solid var(--border,#c8d2ca); border-bottom:1px solid var(--border,#c8d2ca); }
+.choice-playback h4 { margin:0 0 8px; }
+.choice-playback p { font-size:.82rem; }
+.choice-playback-row { display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin-top:10px; }
+.choice-playback-row strong { flex-basis:100%; font-size:.85rem; }
+.choice-playback-row button { font-size:.8rem; }
+.line-player-panel { margin:12px 0; padding:14px; border:1px solid var(--border,#c8d2ca); border-radius:12px; background:var(--surface,#f7f7ef); }
+.line-player-heading { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px; font-size:.85rem; }
+.line-player-panel .line-controls { display:flex; flex-wrap:wrap; justify-content:flex-start; gap:6px; }
+.line-player-panel button { padding:8px 10px; font-size:.78rem; }
+.line-generation { display:flex; gap:7px; flex-wrap:wrap; align-items:center; margin:12px 0; }
+.line-generation label { display:flex; align-items:center; gap:8px; font-size:.75rem; margin-left:auto; }
+.line-generation select { max-width:100%; padding:6px; border-radius:6px; background:var(--surface,#fff); color:var(--ink,#304038); border:1px solid var(--border,#c8d2ca); }
+.line-player-description { font-size:.76rem; line-height:1.5; opacity:.75; }
+.line-position-note { padding-top:10px; border-top:1px solid var(--border,#c8d2ca); font-size:.82rem; line-height:1.5; }
+.line-position-note span { display:block; margin-top:5px; opacity:.8; }
+.line-generation-progress { display:flex; align-items:center; flex-wrap:wrap; gap:10px; font-size:.82rem; }
+.line-generation-progress progress { flex:1; min-width:80px; accent-color:var(--accent,#5b9084); }
+@media(max-width:600px) { .line-generation label { margin-left:0; } }

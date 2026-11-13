@@ -1,5 +1,13 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.7.0 — longer line playback
+
+- Production build and **259 unit tests passed**. The 13 new continuation tests verify 10/20-ply limits, extending short PVs with complete history, unchanged input records, legal replay, mate/stalemate/insufficient-material and repetition stops, promotion, cancellation, and rejected missing/illegal/stale results.
+- **26 targeted Edge browser scenarios passed**: four new line-playback scenarios plus 22 existing exploration, comparison, 3D, and appearance regressions. Unrelated guided-practice, review, and full curriculum browser suites were not repeated in this pass.
+- Verified original five-move and alternative ten-move lines (10/20 half-moves), automatic playback, pause, step back/forward, reset, final-position jump, replay and speed selection. Existing branches and the exact pending live game stayed unchanged. Applying a tested alternative still applied only its first move.
+- Verified 3D playback and final positions, no remote runtime requests, saved cursor/branch recovery after reload, JSON backup restoration, delayed engine cancellation without late branches, and early mate. Existing engine-failure, stale-analysis, special-move, mobile, keyboard, reduced-motion, and appearance checks passed.
+- Visually inspected the playback controls above the board and the separate Original/Alternative buttons in the coach panel. Completed lines persist using the existing exploration schema; playback reopens paused. Launchers and browser origin are unchanged. Actual M4/macOS execution remains unverified.
+
 ## Chessmate 1.6.0 — 3D table and original-move comparison
 
 - Production build and **246 unit tests passed**. New checks cover retained original branches, backup round-trip, invalid original references, optional 3D preferences, score comparisons, and position-matched reply arrows.

@@ -2,6 +2,14 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.7 — play out the possibilities
+
+In exploration, choose **Play out 5 moves** or **Play out 10 moves** above the board. In the original-move comparison panel, the same buttons appear separately for **Original** and **Alternative**, even before requesting an explanation. Each choice builds up to 10 or 20 half-moves from the decision position (five or ten moves per side, including the starting move). Existing moves in the selected line are retained; the full-strength local engine extends short lines using complete position history. The line stops early for mate, stalemate, repetition, or another game-ending condition. These are possible continuations, not guaranteed predictions.
+
+Playback starts when the continuation is ready. The controls above the board let you **Pause**, step **Previous / Next**, **Reset position**, **See final position**, and **Replay**. Choose quick, normal, or thoughtful playback speed. A short board-fact note follows the move and an arrow points to the next saved move during playback. Both 2D and 3D views work. You can pause and play your own move to create another branch.
+
+Generation has visible progress and **Cancel line generation**. Navigating, switching branches, returning to the game, or restarting the engine cancels obsolete results. Completed lines and the current step survive reopening and JSON backup; reopening leaves playback paused. Your live game and pending original move stay untouched. **Play this alternative** still applies only the first move, never the imagined replies. No backup schema or launcher changes are required.
+
 ## New in 1.6 — a real table and remembered moves
 
 Choose **3D · Table view** above the board for a locally rendered scene with sculpted pieces, board materials, lighting, and shadows. Drag to orbit, scroll or pinch to zoom, or use the camera buttons. With the canvas focused, arrow keys rotate, +/− zoom, and Home resets. **Flip board** also resets the camera for your color. Click a piece and then a destination to move; legal highlights and promotion work in both views. Choose **2D · Flat board** for keyboard square navigation or manual arrows. The view choice is included in backups and survives reopening. No remote models, textures, or fonts are needed. WebGL failure offers a flat-board fallback; actual M4/macOS graphics testing remains unverified.
