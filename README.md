@@ -2,6 +2,14 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.11.2 — final polish and reliability pass
+
+Choosing a learning module now takes you straight to its exercises, with keyboard focus on the heading. Tablet lesson cards use two columns, and the mobile Style studio keeps its close button visible. Searching for a different opening clears the previous preview. New-game, imported-game color, and promotion dialogs support keyboard focus, Tab wrapping, and Escape to cancel.
+
+Exploring a lesson after solving it keeps the review interval you earned. Cached review analysis is reused only for the same starting position and move history. Restored backups require complete legal position histories; valid version 1–3 backups remain supported. New-game defaults also follow the color and difficulty in a restored backup.
+
+Import and storage problems now have their own recovery actions, separate from engine restart. A failed load keeps the original stored data intact, and its recovery message stays visible when navigating. Windows Stop handles stale PID files and checks the exact owned server command before stopping a process. All existing local/offline operation, room presets, and separate Mac launchers remain available.
+
 ## New in 1.11.1 — clearer pieces
 
 All ten piece finishes received a readability pass. Filled, outlined king crosses stay visible on light and dark squares, knight eyes have their own contrasting color, and pale galaxy, crystal, gilded, and neon pieces have clearer edges and internal details. The changes also apply to Style studio and promotion choices, including when shadows are off.
@@ -124,7 +132,7 @@ In Windows Chessmate, choose **Back up your progress**. Transfer that JSON file 
 2. Double-click **Setup Chessmate.cmd** once. It downloads a verified, project-local Node 22 runtime, installs dependencies, and builds the app. Internet is needed for this setup.
 3. Double-click **Launch Chessmate.cmd**. Play at **http://127.0.0.1:4173/** in the same browser each time. No internet, login, subscription, or paid API is needed after setup.
 
-The app includes click/drag chess, local Stockfish coaching, saved exploration branches, opponent-threat explanations, hints, opening recognition, 84 exercises, spaced practice, PGN import/export, and JSON backups. Choose glass boards and galaxy pieces in the Style studio.
+The app includes click/drag chess, local Stockfish coaching, saved exploration branches, opponent-threat explanations, hints, opening recognition, 96 exercises, spaced practice, PGN import/export, and JSON backups. Choose glass boards and galaxy pieces in the Style studio.
 
 ## Chessmate 1.2.1
 
@@ -141,7 +149,7 @@ The Git repository contains source, local engine assets, lesson content, tests, 
 - **Return to game** restores your unchanged game, including a move awaiting your approval. **Use this move** is available only at your current decision: it applies the first move of your selected alternative through normal coaching. Historical exploration cannot rewrite the game.
 - **Practice this position** saves an engine-backed candidate to your practice queue. The saved move is a candidate to study, not a claim that every other move is wrong.
 - **Coach assistance** expands above the coach. Toggle opponent threats, opening ideas, position plans, and suggested moves independently. Ideas appear before answers by default. **Reveal suggested moves** enables calculated candidates and board arrows. Coaching follows the visible board and always uses full strength, independently of opponent difficulty.
-- **Opening practice** now includes 12 opening modules and six foundation modules: 84 authored exercises in total. Filter by Openings or Chess foundations. The searchable offline explorer contains 3,865 named reference lines, with transposition recognition and no invented win-rate statistics.
+- **Opening practice** now includes 12 opening modules, six foundation modules, and three situation modules: 96 authored exercises in total. Filter by Openings or Chess foundations. The searchable offline explorer contains 3,865 named reference lines, with transposition recognition and no invented win-rate statistics.
 
 Opening modules: Italian, Caro-Kann, Queen's Gambit Declined, Ruy Lopez, Scotch, Sicilian, French, Scandinavian, London, Queen's Gambit Accepted, Slav, and King's Indian. Foundations cover threats, forks/pins, safe captures, piece activity, pawn breaks/king safety, and basic endgames. The original 24 exercise IDs and practice history are preserved.
 
@@ -180,7 +188,7 @@ Progress is stored in IndexedDB in your browser. Export a JSON backup from the s
 
 ## Develop and verify
 
-On Windows, use `.runtime/node-v22.23.4-win-x64/node.exe` and put that directory first on PATH when running npm. On Mac, put `.runtime/node-v22.23.4-darwin-arm64/bin` (or `darwin-x64/bin`) first. Commands: `npm run dev`, `npm run build`, `npm test`, and `npm run test:browser` (Edge required). Run `python scripts/test-macos-launchers.py` for portable mocked launcher checks (Git Bash on Windows). The production launcher uses a small local-only static server rather than the development server.
+On Windows, use `.runtime/node-v22.23.4-win-x64/node.exe` and put that directory first on PATH when running npm. On Mac, put `.runtime/node-v22.23.4-darwin-arm64/bin` (or `darwin-x64/bin`) first. Commands: `npm run dev`, `npm run build`, `npm test`, and `npm run test:browser` (Edge required). Run `powershell -ExecutionPolicy Bypass -File scripts/test-windows-launchers.ps1` for isolated Windows launcher checks. Run `python scripts/test-macos-launchers.py` for portable mocked launcher checks (Git Bash on Windows). The production launcher uses a small local-only static server rather than the development server.
 
 Implementation: React + TypeScript, chess.js for rules and history, Stockfish.js 18.0.8 lite single-threaded WASM in a worker, IndexedDB for persistence. The coach uses explicit rules and authored lessons, not generated chat. Analysis is serialized; changing positions cancels queued work and destroys the old worker so stale results cannot update a different game.
 

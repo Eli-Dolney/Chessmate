@@ -3,7 +3,7 @@ import type {CandidateLine,GameReview,GameSession,LearningMoment} from './types'
 export function createReview(game:GameSession,color=game.player):GameReview{
  const position={initialFen:game.initialFen,moves:[...game.moves]},entries:GameReview['entries']=[];
  const board=replay({initialFen:game.initialFen,moves:[]});
- game.moves.forEach((move,ply)=>{if(board.turn()===color){const m=game.moments.find(m=>m.fen===board.fen()&&m.played===move&&m.bestLine&&m.playedLine&&m.position?.moves.length===ply);if(m)entries.push({ply,moment:structuredClone(m)});}board.move(move);});
+ game.moves.forEach((move,ply)=>{if(board.turn()===color){const m=game.moments.find(m=>m.fen===board.fen()&&m.played===move&&m.bestLine&&m.playedLine&&m.position?.initialFen===position.initialFen&&m.position.moves.length===ply&&m.position.moves.every((u,i)=>u===position.moves[i]));if(m)entries.push({ply,moment:structuredClone(m)});}board.move(move);});
  return {id:crypto.randomUUID(),gameId:game.id,position,color,entries,search:{time:1000,skill:20},selected:0};
 }
 export function reviewPlies(review:GameReview){const c=replay({initialFen:review.position.initialFen,moves:[]});return review.position.moves.flatMap((m,i)=>{const own=c.turn()===review.color;c.move(m);return own?[i]:[];});}

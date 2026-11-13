@@ -1,4 +1,4 @@
-Chessmate 1.11.1 — GPL-3.0-only
+Chessmate 1.11.2 — GPL-3.0-only
 Original application, lessons, and SVG pieces.
 Stockfish.js 18.0.8 — GPL-3.0: https://github.com/nmrugg/stockfish.js/tree/v18.0.8
 Exact upstream source archive: vendor/stockfish-source-v18.0.8.zip (includes build scripts).

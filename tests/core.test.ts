@@ -28,6 +28,9 @@ describe('honest coaching',()=>{
 describe('persistence and scheduling',()=>{
  it('round-trips all data through IndexedDB',async()=>{const d=defaults();d.current.moves=['e2e4','e7e5'];await saveData(d);expect(await loadData()).toEqual(d);});
  it('rejects malformed backups and illegal histories',()=>{expect(()=>validateBackup({version:9})).toThrow();const d=defaults();d.current.moves=['e2e8'];expect(()=>validateBackup(d)).toThrow();});
+ it('requires an explicit starting position in restored histories',()=>{const d=defaults();delete (d.current as Partial<typeof d.current>).initialFen;expect(()=>validateBackup(d)).toThrow('Invalid saved position history');});
+ it.each(['e4','e2e4junk','e2e4q'])('rejects noncanonical saved moves before replacing data: %s',move=>{const d=defaults();d.current.moves=[move];expect(()=>validateBackup(d)).toThrow();expect(d.current.moves).toEqual([move]);});
+ it('rejecting an extra promotion suffix leaves the board unchanged',()=>{const c=new Chess(),before=c.fen();expect(()=>uciMove(c,'e2e4q')).toThrow();expect(c.fen()).toBe(before);expect(c.history()).toEqual([]);});
  it('supports 1, 3, 7, 14 day spacing and next-session misses',()=>{const now=new Date('2026-10-30T12:00:00Z');let p:PracticeRecord={id:'x',exerciseId:'italian-1',stage:0,due:now.toISOString(),lastSession:'',missed:false,attempts:0};for(const days of [1,3,7,14,14]){p=schedule(p,true,'a',now);expect(Date.parse(p.due)-Number(now)).toBe(days*86400000);}p=schedule(p,false,'a',now);expect(isDue(p,'a',now)).toBe(false);expect(isDue(p,'b',now)).toBe(true);});
  it('imports PGN including setup positions and rejects invalid moves',()=>{const g=importPgn('1. e4 e5 2. Nf3 *');expect(g.moves).toEqual(['e2e4','e7e5','g1f3']);const custom=importPgn('[SetUp "1"]\n[FEN "7k/P7/8/8/8/8/8/7K w - - 0 1"]\n\n1. a8=N *');expect(replay(custom).get('a8')?.type).toBe('n');expect(()=>importPgn('1. e5')).toThrow();});
 });

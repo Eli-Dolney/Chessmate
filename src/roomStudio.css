@@ -66,3 +66,12 @@
 @media(max-width:900px) { .room-studio .studio-workspace { grid-template-columns:minmax(230px,.8fr) minmax(0,1fr);gap:18px; }.room-control-grid{gap:12px;}.room-options{grid-template-columns:1fr;} }
 @media(max-width:600px) { .room-studio .studio-workspace { display:flex; }.room-studio .studio-picker{max-height:none;}.room-studio .room-preview{display:block;width:100%;}.room-preview .studio-live-board{max-width:260px;margin:auto;}.room-preview-switch{margin-top:12px;}.room-preview .preview-note{margin:14px 0;}.room-options{grid-template-columns:repeat(2,minmax(0,1fr));}.room-control-grid{grid-template-columns:1fr;gap:0;}.saved-look{flex-wrap:wrap;}.saved-look>span{flex-basis:100%;} }
 @media(prefers-reduced-motion:reduce){.room-preview::after{animation:none!important;}}
+/* Keep the close control reachable while browsing the longer mobile studio. */
+@media(max-width:600px){
+ .room-studio{scroll-padding-top:96px;}
+ .room-studio .studio-heading{position:sticky;top:-18px;z-index:5;align-items:center;margin:-18px -18px 18px;padding:14px 18px;background:var(--surface-strong,#f8f7ef);border-bottom:1px solid var(--border,#c7cdbb);}
+ .room-studio .studio-heading>div{min-width:0;}
+ .room-studio .studio-heading h2{font-size:22px;margin:0;}
+ .room-studio .studio-heading :is(.eyebrow,p){display:none;}
+ .room-studio .studio-close{width:40px;height:40px;}
+}

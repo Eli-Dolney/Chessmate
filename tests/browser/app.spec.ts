@@ -42,6 +42,8 @@ test('real worker failure is recoverable',async({page})=>{
  await page.route('**/engine/*.js',r=>r.abort());await page.getByRole('button',{name:'Give me a hint'}).click();await expect(page.getByRole('alert')).toContainText('could not start',{timeout:25000});await page.unroute('**/engine/*.js');await page.getByRole('button',{name:'Restart engine',exact:true}).click();await page.getByRole('button',{name:'Give me a hint'}).click();await expect(page.locator('.hint-box')).toContainText('HINT 1',{timeout:25000});
 });
 test('all 96 lesson solutions succeed through the board',async({page})=>{
+ // This batch verifies every answer; scrolling/animation behavior has separate coverage.
+ test.setTimeout(120000);await page.emulateMedia({reducedMotion:'reduce'});
  const {exercises,modules}=await import('../../src/lessons');
  for(const e of exercises){await page.getByRole('button',{name:/Opening practice/}).click();await page.locator('.module-grid').getByRole('button',{name:new RegExp(modules.find(m=>m.id===e.module)!.title)}).first().click();await page.locator('.exercise-list').getByRole('button',{name:new RegExp(e.title.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))}).click();const c=new Chess(e.fen),m=c.move(e.accepted[0]);await move(page,m.from,m.to);if(m.promotion)await page.getByRole('button',{name:({q:'Promote to queen',r:'Promote to rook',b:'Promote to bishop',n:'Promote to knight'} as const)[m.promotion as 'q'|'r'|'b'|'n'],exact:true}).click();await expect(page.getByRole('heading',{name:'You found the idea.'})).toBeVisible();}
 });

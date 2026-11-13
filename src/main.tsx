@@ -16,3 +16,4 @@ import './openingLab.css';
 
 import './rooms.css';
 import './roomStudio.css';
+import './dialogs.css';

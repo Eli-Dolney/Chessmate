@@ -55,8 +55,11 @@ export function answerTraining(data:AppData,uci:string):AppData{
 }
 export function hintTraining(data:AppData):AppData{
  const s=data.training;if(!s||s.cursor>=s.items.length)return data;
- const item=s.items[s.cursor],hint=Math.min(3,item.hint+1),revealed=item.revealed||hint===3;
+ const item=s.items[s.cursor];
+ // Studying a continuation after a completed answer must not change the earned result or schedule.
+ if(item.result==='solved'||item.result==='assisted')return data;
+ const hint=Math.min(3,item.hint+1),revealed=item.revealed||hint===3;
  let practice=data.practice,record=item.record;
  if(hint===3&&!item.revealed){const existing=practice.find(r=>practiceKey(r)===practiceKey(record))??record;record=schedule(existing,false,s.id);practice=[...practice.filter(r=>practiceKey(r)!==practiceKey(record)),record];}
- return {...data,practice,training:{...s,items:s.items.map((x,i)=>i===s.cursor?{...item,record,hint,revealed,result:revealed&&item.result==='solved'?'assisted':item.result}:x)}};
+ return {...data,practice,training:{...s,items:s.items.map((x,i)=>i===s.cursor?{...item,record,hint,revealed}:x)}};
 }

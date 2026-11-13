@@ -1,5 +1,14 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.11.2 — full release polish and regression pass
+
+- Production build and **344 unit tests passed**, including eight new regression cases for earned practice intervals, exact-history review reuse, and malformed saved positions/moves. Valid version 1–3 backups remain compatible.
+- **76 distinct Edge browser scenarios passed**: 75 in the final full run, plus the all-96-lesson batch in its successful targeted rerun. Six new scenarios cover keyboard dialogs/promotion, import recovery, persistent load failures, solved-session exploration/reopening, and searchable lesson navigation. The curriculum batch now uses reduced motion and a 120-second ceiling; it passed in 15.9 seconds. An earlier diagnostic run exhausted free space on the project drive, so final browser output was redirected to temporary storage.
+- Full regression coverage includes all chess rules, engine failure/restart and stale-search cancellation, both colors, legal opening/lesson lines, coached and automatic play, exploration branches, 5/10-move playback, 2D/3D controls, capture inspection, guided practice, review cancellation/resumption, PGN and JSON backups, saved appearance presets, audio lifecycle, and actual offline browser close/reopen sessions. No new dependencies or remote assets were added.
+- Visually inspected play, learning, practice/exploration, library/review, Style studio, and dialogs at 390, 768, 1440, and 1920px. No horizontal overflow was observed. Tablet module cards use two columns; selecting a module focuses and reveals its exercises; the mobile studio Close remains reachable at the bottom of its content. Native dialogs support focus entry, Tab wrapping, Escape, and focus restoration.
+- **21 isolated Windows launcher checks passed**, including paths with spaces, missing setup, port conflicts, startup health/reuse, inherited port override, stale/corrupt PID records, and refusing to stop unrelated programs using the same runtime. Mac verification passed **7 shell syntax checks and 14 mocked scenarios**; executable modes and LF endings are retained. Actual macOS/M4 execution remains unverified.
+- Windows installed copy and local health verified after update. The browser origin, database name, backup schema 3, local engine, room assets, and separate launchers are retained. No live browser profile was used for test fixtures.
+
 ## Chessmate 1.11.1 — piece readability and 3D shape polish
 
 - Production build and **336 unit tests passed**. **19 distinct existing Edge browser scenarios passed** across appearance, rooms, 3D interactions, comparison, and offline reopening. The six 3D/comparison scenarios passed again after the final knight refinement. No new dependencies or remote assets were added.

@@ -1,0 +1,5 @@
+.modal-dialog,.board-interactive>.promotion.modal-dialog{position:fixed;inset:0;margin:auto;width:min(460px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-sizing:border-box;overflow:auto;color:inherit;border:1px solid var(--border,#c7cdbb)}
+.modal-dialog::backdrop{background:#090e1cb3;backdrop-filter:blur(4px)}
+.modal-dialog button:focus-visible,.modal-dialog select:focus-visible{outline:3px solid var(--accent,#53795b);outline-offset:3px}
+.banner-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+@media(prefers-reduced-motion:reduce){.modal-dialog{scroll-behavior:auto}}
