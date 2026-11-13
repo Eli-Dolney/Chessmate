@@ -1,0 +1,40 @@
+/* Original room scenery and materials, with no downloaded textures. */
+.app-shell[data-room=study]{background:radial-gradient(ellipse at 85% 18%,#b57a3145,transparent 50%),repeating-linear-gradient(90deg,#301f1944 0 2px,transparent 2px 130px),#171614}
+.app-shell[data-room=space]{background:radial-gradient(ellipse at 80% 12%,#57359460,transparent 40%),radial-gradient(ellipse at 30% 80%,#176b8240,transparent 50%),#080e20}
+.app-shell[data-room=rain]{background:linear-gradient(135deg,#152d3e,#0d1320 65%,#293b49)}
+.app-shell[data-room=tournament]{background:linear-gradient(145deg,#29343b,#121c25)}
+.app-shell[data-skin=classic][data-room]:not([data-room=studio]){background-color:#edece3;background-blend-mode:soft-light;color:#243b34}
+.room-atmosphere{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;opacity:.5}
+.app-shell>.sidebar,.app-shell>main{z-index:1}
+.app-shell>main{position:relative}
+.app-shell[data-room=studio]>.room-atmosphere{display:none}
+.app-shell[data-room=study]>.room-atmosphere{background:radial-gradient(ellipse at 90% 20%,color-mix(in srgb,var(--room-light) 24%,transparent),transparent 50%)}
+.app-shell[data-room=study]>.room-atmosphere span:first-child{position:absolute;right:4%;top:8%;width:180px;height:260px;border:14px solid #7f583b50;background:repeating-linear-gradient(0deg,transparent 0 68px,#93674560 68px 74px),repeating-linear-gradient(90deg,#704d4144 0 14px,#263e4350 14px 28px,#97785940 28px 40px);transform:perspective(700px) rotateY(-20deg)}
+.app-shell[data-room=space]>.room-atmosphere{background-image:radial-gradient(circle,#fff9 1px,transparent 1.5px),radial-gradient(circle,#aeeeff66 1px,transparent 2px);background-size:173px 139px,271px 223px;background-position:30px 20px,97px 60px}
+.app-shell[data-room=space]>.room-atmosphere span:first-child{position:absolute;right:-80px;top:5%;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#a8bddc60,#5651a61f 60%,#060c24);box-shadow:0 0 70px #b79af522}
+.app-shell[data-room=rain]>.room-atmosphere{background:repeating-linear-gradient(90deg,transparent 0 220px,#66899f13 221px 225px),linear-gradient(transparent 50%,#8eb8cb12 50% 51%,transparent 51%)}
+.app-shell[data-room=rain]>.room-atmosphere span{position:absolute;inset:-100%;background:repeating-linear-gradient(108deg,transparent 0 67px,#9ac9d91c 68px 69px,transparent 70px 113px);animation:room-rain 7s linear infinite}
+.app-shell[data-room=rain]>.room-atmosphere span:nth-child(2){background-size:170px 240px;opacity:.4;animation-duration:11s}
+.app-shell[data-room=rain]>.room-atmosphere span:nth-child(3){display:none}
+.app-shell[data-room=tournament]>.room-atmosphere{background:linear-gradient(120deg,transparent 20%,#ecf7ff0d 20% 21%,transparent 21% 79%,#ecf7ff0d 79% 80%,transparent 80%)}
+.app-shell[data-room-effects=off]>.room-atmosphere{display:none}
+@keyframes room-rain{from{transform:translateY(-40px)}to{transform:translateY(120px)}}
+@media(prefers-reduced-motion:reduce){.room-atmosphere,.room-atmosphere *{animation:none!important}}
+.app-shell[data-material=smoked]{--room-tile-light:linear-gradient(135deg,#b9c7d5,#718596 52%,#a1b6c3);--room-tile-dark:linear-gradient(135deg,#354652,#111d2b 65%,#2e414e)}
+.app-shell[data-material=marble]{--room-tile-light:url("/materials/marble-veins.svg") center/170px 170px,linear-gradient(35deg,#e2e7ec,#fffefa,#d4dfe5);--room-tile-dark:url("/materials/marble-veins.svg") 30% 70%/190px 190px,linear-gradient(40deg,#182a32,#354854,#1b2937)}
+.app-shell[data-material=wood]{--room-tile-light:repeating-linear-gradient(6deg,#74452020 0 1px,transparent 2px 7px),linear-gradient(90deg,#c39462,#e2bf8b 45%,#b67e47);--room-tile-dark:repeating-linear-gradient(4deg,#d1a66d15 0 1px,transparent 2px 6px),linear-gradient(90deg,#472818,#794c2a 45%,#4d2e1e)}
+.app-shell[data-material=crystal]{--room-tile-light:linear-gradient(140deg,#d4f4fa99,transparent 40%),linear-gradient(35deg,#8fa5bd,#b0c9d2 47%,#727dba 48%,#bdd4ee);--room-tile-dark:linear-gradient(125deg,#af9eea22,transparent 45%),linear-gradient(40deg,#201d4a,#414a72 45%,#232742 46%,#374d64)}
+.app-shell[data-material]:not([data-material=palette]) .square.light{background:var(--room-tile-light);color:#233649}
+.app-shell[data-material]:not([data-material=palette]) .square.dark{background:var(--room-tile-dark);color:#e5eafb}
+.app-shell[data-material]:not([data-material=palette]) .square:hover:not(.selected):not(.marked):not(.hint-source):not(.last){box-shadow:inset 0 0 0 3px #e8fcff55}
+.app-shell[data-room-custom=on] .board-wrap{box-shadow:0 0 32px color-mix(in srgb,var(--room-light) 16%,transparent),0 18px 40px #0005}
+.app-shell[data-room-custom=on] .board-surface{filter:brightness(clamp(.85,calc(.7 + var(--room-brightness)*.3),1.24))}
+.app-shell[data-shadows=off] .board-wrap,.app-shell[data-shadows=off] .scene-shell{box-shadow:none}
+.app-shell[data-shadows=off] .piece{filter:none}
+.finish-wood{filter:drop-shadow(0 1px 1px #170e0877)}
+.finish-frosted{filter:drop-shadow(0 1px 1px #173e5555)}
+.finish-metal{filter:drop-shadow(0 2px 1px #09121c66)}
+.finish-future{filter:drop-shadow(0 0 2px #b3f8ed55)}
+.app-shell[data-room-effects=off] .finish-future{filter:none}
+
+.app-shell[data-material]:not([data-material=palette]) .square.last{outline:2px solid #d4b963;outline-offset:-2px}

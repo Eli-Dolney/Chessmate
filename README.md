@@ -2,6 +2,18 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.11 — build your chess room
+
+Open **Style studio** to combine a **Cozy study**, **Space platform**, **Rainy window**, or **Tournament room** with any board palette. **Original room** keeps the familiar look. Choose **Preview 3D** to look around the local scene, or **Preview 2D** for a flat-board preview. The preview never changes your game. Choose **3D · Table view** on the playing board to use the room while playing; orbit, zoom, and keyboard camera controls still work.
+
+**Board material** is independent of the palette: choose smoked glass, marble, walnut, glowing crystal, or the original palette material. Four new piece finishes—**Carved wood**, **Frosted glass**, **Metallic**, and **Futuristic**—join the six existing sets. Original local SVG and procedural textures supply every finish; no texture downloads, paid assets, or accounts are needed.
+
+Adjust **Light color**, **Lighting brightness**, **Soft shadows**, and **Atmospheric effects**. The flat board uses a light tint and material shading; the 3D scene uses actual lights and shadows. Room details are static in 3D so rendering runs only when needed; subtle rain effects on the page respect reduced motion and the Smooth moves toggle. You can turn decorative effects and shadows off independently. Changing a material or room preserves the 3D camera pose.
+
+Optional **Gentle rain**, **Fireplace**, and **Space hum** are synthesized on your device. Select a sound or use **Resume ambience** to start; **Pause ambience** stops it. Sound stays off until requested and requires Resume after reopening. Background tabs suspend the sound. The ambient volume control is separate from the existing move-sound checkbox.
+
+Under **Your saved looks**, name and save up to twelve combinations. **Load** restores the complete appearance, including room, materials, pieces, view, lighting, and sound settings; **Delete** removes only that preset. Saved looks travel with your JSON backup. **Reset appearance** restores the original defaults while retaining your saved looks and chess progress. Existing saves migrate without changing their appearance or game history; backup schema 3 and the browser origin stay unchanged.
+
 ## New in 1.10 — try defenses from your current position
 
 Turn on **Opening help**, then choose **Try defenses from here** in Coach assistance. The opening defense lab starts at the board you are viewing, preserving its full move history. If the computer has just replied, **Try another opponent reply** opens the position before that reply and keeps the actual reply as a saved branch.

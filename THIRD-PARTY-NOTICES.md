@@ -2,7 +2,7 @@
 
 Chessmate application source, original lesson prose, and original SVG piece artwork are licensed under GPL-3.0-only. The complete GPL text is in LICENSE. This program comes without warranty; see that license for details.
 
-Version 1.1 adds original procedural galaxy/crystal SVG finishes, glass board CSS, annotations, motion, and synthesized audio. These are included under the same application license and contain no externally loaded media.
+Versions 1.1–1.11 add original procedural galaxy/crystal and material SVG finishes, glass board CSS, procedural room geometry/textures, a marble-vein SVG, annotations, motion, and synthesized move/ambient audio. These are included under the same application license and contain no externally loaded media.
 
 - Stockfish.js **18.0.8**, Stockfish **18**, GPL-3.0: https://github.com/nmrugg/stockfish.js/tree/v18.0.8 . Unmodified lite single-threaded engine JS/WASM files are bundled. The matching source including build scripts is included in `vendor/stockfish-source-v18.0.8.zip`. Follow its README to build with Emscripten. Corresponding license: `public/licenses/stockfish.txt`.
 - chess.js, BSD-2-Clause: https://github.com/jhlywa/chess.js . License: `public/licenses/chess-js.txt`.

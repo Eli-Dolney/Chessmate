@@ -1,5 +1,15 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.11.0 — rooms, materials, and personal looks
+
+- Production build and **336 unit tests passed**. Fifteen new tests cover room/preset validation, unchanged legacy appearance shapes, clone ownership, names and twelve-look limits, old-backup compatibility, rejection before data replacement, and synthesized-audio allocation/stop/disconnect/disposal.
+- **19 distinct Edge browser scenarios passed**: six new room scenarios plus thirteen existing style, 3D interaction, comparison, and offline regressions. The five initial room scenarios were rerun after visual refinements; the additional custom-material highlight/undo scenario passed after its final styling fix.
+- Verified all four environments plus the original room, independent materials/pieces, ten finishes, 2D and 3D previews, live lighting/brightness/shadows/effects, camera controls, saved-look save/load/delete, reload and JSON restore, and malformed preset rejection with an unchanged game.
+- Verified mobile width, keyboard access, reduced motion, preserved pending games, 3D movement/promotion/rotated Black play, comparison arrows, lost-graphics fallback, and legal destinations/selection/last-move marks under custom materials. Existing chess/lesson unit coverage passes; unrelated full lesson/review/guided-practice browser suites were not repeated.
+- Ambient audio is synthesized locally and off by default. Browser checks verified explicit start, pause/resume, stopping on Off, persisted volume, and a real browser close/reopen requiring a new resume gesture. Audio-node unit tests verify old sources stop and disconnect when switching beds. Tests check browser audio lifecycle, not subjective listening quality. Nonlocal runtime requests were blocked in offline checks.
+- Visually inspected desktop/mobile studio and all four 3D rooms. Adjusted the space planet/star placement to appear at the default camera, and replaced the flat marble stripes with original local SVG veins. Rooms use deterministic geometry/textures; 3D rendering remains demand-driven, with no continuous animation loop.
+- Windows remains the verified platform. Separate launchers, fixed origin, IndexedDB name, and schema-3 backups are retained; saved looks are optional new settings. Actual macOS/M4 execution and speaker playback quality remain unverified. No dependency, remote image/font/audio, or online service was added.
+
 ## Chessmate 1.10.0 — opening defense lab
 
 - Production build and **321 unit tests passed**. New coverage includes all 8,192 indexed reference continuations replayed legally, position-key transpositions, castling/en-passant rights, full-history repetition and terminal stops, corrupt-route filtering, opening-study backup compatibility, and conditional setup coaching for both colors.

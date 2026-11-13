@@ -1,8 +1,8 @@
 import type { Color } from 'chess.js';
-import type { Appearance } from './appearance';
+import type { Appearance,SavedStylePreset } from './appearance';
 export type Difficulty = 'Gentle' | 'Steady' | 'Challenging';
 export interface CoachPreferences { detail?:'brief'|'detailed'; pauseAfterMove?:boolean; captures?:boolean; lineCommentary?:boolean; enabled:boolean; threats:boolean; openings:boolean; plans:boolean; suggestions:boolean }
-export interface Settings { color: Color; difficulty: Difficulty; flipped: boolean; appearance:Appearance; coach:CoachPreferences }
+export interface Settings { stylePresets?:SavedStylePreset[]; color: Color; difficulty: Difficulty; flipped: boolean; appearance:Appearance; coach:CoachPreferences }
 export interface PositionHistory { initialFen:string; moves:string[] }
 export interface ExplorationBranch { id:string; label:string; moves:string[] }
 export interface Exploration { kind?:'opening'; originalMove?:string; id:string; root:PositionHistory; branches:ExplorationBranch[]; branchId:string; step:number; label:string; source?:{gameId:string; prefix:string[]} }

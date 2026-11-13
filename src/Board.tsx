@@ -3,6 +3,7 @@ import {Chess,type Color,type PieceSymbol,type Square} from 'chess.js';
 import {names,uciMove} from './chess';
 import {AppearanceContext,BoardViewContext,type PieceStyle} from './appearance';
 import {enableSounds,playMoveTone} from './sound';
+import RoomPiece from './RoomPiece';
 const BoardScene=lazy(()=>import('./BoardScene'));
 const paths:Record<PieceSymbol,React.ReactNode>={
  p:<><circle cx="22.5" cy="12" r="5"/><path d="M18 18h9l-2 8 5 7H15l5-7z"/><path d="M13 34h19v5H13z"/></>,
@@ -22,6 +23,7 @@ const porcelainPaths:Record<PieceSymbol,React.ReactNode>={
 };
 export function Piece({type,color,style}:{type:PieceSymbol;color:Color;style?:PieceStyle}){
  const appearance=useContext(AppearanceContext),finish=style??appearance.pieces,id=useId().replace(/:/g,''),white=color==='w';
+ if(finish==='wood'||finish==='frosted'||finish==='metal'||finish==='future')return <RoomPiece type={type} white={white} finish={finish} id={id} shape={porcelainPaths[type]}/>;
  const modern=['porcelain','gilded','neon'].includes(finish);
  const edge=finish==='gilded'?(white?'#fff1b4':'#f2c781'):finish==='neon'?(white?'#a4ffff':'#ffb7ef'):white?'#536879':'#d2dbe3';
  const fill=modern?(finish==='neon'?(white?'#b4ffff':'#331239'):`url(#${id}-material)`):finish==='classic'?(white?'#fff9e8':'#253d35'):`url(#${id}-surface)`;

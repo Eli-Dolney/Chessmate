@@ -1,0 +1,8 @@
+import {describe,it,expect} from 'vitest';
+import {defaultRoom,saveStylePreset} from '../src/appearance';
+import {defaults,validateBackup} from '../src/storage';
+describe('room backup compatibility',()=>{
+ it('retains room settings and saved combinations without changing games or practice',()=>{const d=defaults();d.current.moves=['e2e4'];d.current.pending=true;d.settings.appearance={...d.settings.appearance,pieces:'metal',view:'3d',room:{...defaultRoom,environment:'rain',ambient:'rain',material:'marble'}};d.settings.stylePresets=saveStylePreset([],d.settings.appearance,'Rain on marble');const restored=validateBackup(JSON.parse(JSON.stringify(d)));expect(restored).toEqual(d);restored.settings.stylePresets![0].appearance.room!.environment='space';expect(d.settings.stylePresets![0].appearance.room!.environment).toBe('rain');});
+ it('preserves the shape and game of old version 1/2/3 saves',()=>{for(const version of [1,2,3]){const d=defaults(),old={...d,version};const result=validateBackup(old);expect(result.settings.stylePresets).toBeUndefined();expect(result.settings.appearance.room).toBeUndefined();expect(result.current).toEqual(d.current);}});
+ it('rejects invalid saved looks and room values before replacement',()=>{const d=defaults();d.settings.stylePresets=saveStylePreset([],d.settings.appearance,'Saved');const corrupt=structuredClone(d);corrupt.settings.stylePresets![0].appearance.room={...defaultRoom,brightness:Infinity};expect(()=>validateBackup(corrupt)).toThrow();const duplicate=structuredClone(d);duplicate.settings.stylePresets!.push(duplicate.settings.stylePresets![0]);expect(()=>validateBackup(duplicate)).toThrow();expect(d.settings.stylePresets).toHaveLength(1);});
+});

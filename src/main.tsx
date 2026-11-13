@@ -13,3 +13,6 @@ import './lineCoach.css';
 import './coachingControls.css';
 
 import './openingLab.css';
+
+import './rooms.css';
+import './roomStudio.css';
