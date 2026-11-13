@@ -1,5 +1,15 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.10.0 — opening defense lab
+
+- Production build and **321 unit tests passed**. New coverage includes all 8,192 indexed reference continuations replayed legally, position-key transpositions, castling/en-passant rights, full-history repetition and terminal stops, corrupt-route filtering, opening-study backup compatibility, and conditional setup coaching for both colors.
+- **14 targeted Edge browser scenarios passed**: five new defense-lab scenarios, all five coaching-control checks, three line-coach regressions, and the offline browser close/reopen workflow. The first attempted lab run could not reach a stalled test server; after replacing only that verified 4174 process, all five passed. The final 14-scenario run passed after narration and layout integration.
+- Verified Caro-Kann/French branches from the current position, free replies, both sides' commentary, current-position transpositions, branch/cursor reload and JSON restoration, unchanged pending game on return, and saving the actual opponent reply before testing alternatives.
+- Verified that Black can apply only the first tested move at the live decision. Historical opponent alternatives cannot rewrite the game. An uncatalogued position supports castling and legal free exploration; interrupted engine requests cannot leave stale alternatives after navigating.
+- Checked keyboard operation and 390px mobile width, automatic/paused modes, offline local requests, and existing 3D commentary/playback. The final reference grid collapses after selection, and wide layouts place the line coach before generic coaching. Full curriculum, guided-practice, and review browser suites were not repeated.
+- Setup explanations are original board-conditioned principles rather than tactical promises. Immediate checks/capture concerns keep priority. Tests suppress opening patterns after structural changes or later/low-material positions. Existing deeper tactical fixtures remain covered by the unchanged baseline tests; no new forced tactical-win claim was added.
+- The derived CC0 catalog index is lazy-loaded locally; no service or dependency was added. Vite reports its existing large-chunk advisory for local data/3D code. Backup schema 3, browser origin, engine files, and separate launchers remain compatible. Actual macOS/M4 execution is still unverified.
+
 ## Chessmate 1.9.0 — adjustable play and coaching
 
 - Production build and **293 unit tests passed**. Nineteen coaching preference tests cover presets, independent options, legacy defaults, nonmutation, versions 1/2/3 backup compatibility, preservation of game state, and rejection of invalid new settings.

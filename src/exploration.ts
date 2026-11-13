@@ -39,6 +39,7 @@ export function applicableMove(study:Exploration,game:GameSession):string|undefi
  try{uciMove(board,first);return first;}catch{return;}
 }
 export function validateStudy(s:Exploration){
+ if(s?.kind!==undefined&&s.kind!=='opening')throw new Error('Invalid exploration kind.');
  if(!s||typeof s.id!=='string'||typeof s.label!=='string'||!s.root||!Array.isArray(s.root.moves)||s.root.moves.length>2000||!Array.isArray(s.branches)||!s.branches.length||s.branches.length>200)throw new Error('Invalid exploration.');
  const root=replay(s.root),ids=new Set<string>();
  if(s.originalMove!==undefined){if(typeof s.originalMove!=='string'||!s.branches.some(b=>b.moves?.[0]===s.originalMove))throw new Error('Invalid original move.');uciMove(replay(s.root),s.originalMove);}

@@ -1,6 +1,7 @@
 import {Chess,type Color,type Move,type Square} from 'chess.js';
 import {branchOf,studyPosition} from './exploration';
 import {explainMove,positionPlans} from './coach';
+import {openingSetupFor,openingMovePurpose} from './openingSetups';
 import {legalCaptures,names,pieces,replay,resultLabel,uciMove,values} from './chess';
 import type {CoachingEvidence,Exploration} from './types';
 
@@ -18,8 +19,10 @@ const side=(color:Color)=>color==='w'?'White':'Black';
 const center=['d4','e4','d5','e5'];
 const ownWords=(text:string,color:Color)=>text.replace(/\byour\b/gi,`${side(color)}’s`).replace(/\byou have\b/gi,`${side(color)} has`);
 
-function movePurpose(before:Chess,after:Chess,m:Move):CoachingEvidence {
+function movePurpose(before:Chess,after:Chess,m:Move,opening=false):CoachingEvidence {
  const who=side(m.color),square=m.to,pattern=explainMove(before.fen(),m.lan).find(e=>e.text.includes('fork pattern')||e.text.includes('pinned to its king'));
+ const openingIdea=opening&&!pattern?openingMovePurpose(before,after,m):undefined;
+ if(openingIdea)return openingIdea;
  let text:string;
  if(after.isCheckmate())text='There is no further setup to calculate in this line: the move has delivered checkmate.';
  else if(after.isCheck())text=`The check makes ${side(after.turn())} answer the king attack. ${who} may use that forcing move to gain time, but the legal defenses still need inspection.`;
@@ -37,7 +40,7 @@ function movePurpose(before:Chess,after:Chess,m:Move):CoachingEvidence {
  return {kind:'principle',text,squares:[square]};
 }
 
-function planFor(board:Chess,color:Color):CoachingEvidence {
+function planFor(board:Chess,color:Color,opening=false):CoachingEvidence {
  const who=side(color),opponent=color==='w'?'b':'w';
  if(board.turn()===color&&board.isCheck())return {kind:'principle',text:`${who} must first deal with the check. Compare legal king moves, captures of the checking piece, and blocks where available before pursuing a longer-term plan.`,squares:pieces(board).filter(p=>p.color===color&&p.type==='k').map(p=>p.square)};
  // Only the actual side to move is used for a concrete capture warning.
@@ -45,6 +48,7 @@ function planFor(board:Chess,color:Color):CoachingEvidence {
   const threat=legalCaptures(board,opponent).filter(m=>m.captured&&values[m.captured]>=3).sort((a,b)=>values[b.captured!]-values[a.captured!])[0];
   if(threat)return {kind:'principle',text:`${side(opponent)} can legally play ${threat.san} against ${who}’s ${names[threat.captured!]} on ${threat.to}. ${who}’s possible priority is to account for that capture or a counter-threat. A legal capture is not proof that it works.`,squares:[threat.from,threat.to]};
  }
+ const setup=opening?openingSetupFor(board,color):undefined;if(setup)return setup;
  const candidates=positionPlans(board.fen(),color);
  const plan=candidates.find(e=>e.text.includes('Few pieces remain'))??candidates.find(e=>e.text.includes('no castling rights'))??candidates.find(e=>e.text.includes('minor pieces'))??candidates.find(e=>e.text.includes('rook is on a file'))??candidates[0];
  return {kind:'principle',text:ownWords(plan.text,color),squares:plan.squares};
@@ -53,6 +57,7 @@ function planFor(board:Chess,color:Color):CoachingEvidence {
 /** Synchronous narration of the visible study step; no saved game or engine state is changed. */
 export function buildLineCommentary(study:Exploration):LineCommentary {
  const board=replay(studyPosition(study)),branch=branchOf(study),terminal=board.isGameOver()?resultLabel(board):undefined;
+ const opening=study.kind==='opening';
  const last=study.step?branch.moves[study.step-1]:undefined;
  let facts:CoachingEvidence[],purpose:CoachingEvidence,heading:string;
  if(last){
@@ -63,14 +68,14 @@ export function buildLineCommentary(study:Exploration):LineCommentary {
   if(['n','b'].includes(m.piece)&&m.from[1]===(m.color==='w'?'1':'8')&&m.to[1]!==m.from[1])facts.unshift({kind:'fact',text:`The ${names[m.piece]} moves from the back rank on ${m.from} to ${m.to}.`,squares:[m.from,m.to]});
   if(m.piece==='p'&&center.includes(m.to))facts.unshift({kind:'fact',text:`${side(m.color)}’s pawn now occupies the central square ${m.to}.`,squares:[m.to]});
   if(!facts.length)facts=[{kind:'fact',text:`${side(m.color)} moves the ${names[m.piece]} from ${m.from} to ${m.to}.`,squares:[m.from,m.to]}];
-  purpose=movePurpose(before,after,m);
+  purpose=movePurpose(before,after,m,opening);
  }else{
   heading=`Starting position · ${side(board.turn())} to move`;
   facts=[{kind:'fact',text:`This is the starting position of the selected line. ${side(board.turn())} moves next.`}];
   purpose={kind:'principle',text:'Compare checks, captures, and threats before following the continuation. The saved moves show one possible sequence, not the only way either side can play.'};
  }
  if(terminal){facts=[{kind:'fact' as const,text:terminal},...(last?facts.filter(e=>!e.text.includes('checkmate')):[])].slice(0,3);if(!last)heading=`Line finished · ${terminal}`;purpose={kind:'principle',text:'This line has ended under the game rules. Step back to examine where a different choice could change the outcome.'};}
- const plans:LineCommentary['plans']=(['w','b'] as const).map(color=>({color,evidence:terminal?{kind:'principle',text:`${side(color)} has no further move to plan in this finished line.`}:planFor(board,color)}));
+ const plans:LineCommentary['plans']=(['w','b'] as const).map(color=>({color,evidence:terminal?{kind:'principle',text:`${side(color)} has no further move to plan in this finished line.`}:planFor(board,color,opening)}));
  let next:LineContinuation|undefined;
  if(!terminal){
   const future=replay(studyPosition(study)),intervening:string[]=[];
@@ -79,7 +84,7 @@ export function buildLineCommentary(study:Exploration):LineCommentary {
    const before=new Chess(future.fen()),m=uciMove(future,move),current=board.get(m.from);
    const samePiece=current?.color===m.color&&current.type===m.piece&&!intervening.some(u=>u.slice(0,2)===m.from||u.slice(2,4)===m.from);
    const squares=intervening.length===0?[m.from,m.to]:samePiece?[m.from]:[];
-   const continuation:LineContinuation={san:m.san,move,text:`In this saved line, ${side(m.color)} ${intervening.length?'later':'next'} plays ${m.san}. ${movePurpose(before,future,m).text} This continuation is a possibility, not a forced prediction.`,squares};
+   const continuation:LineContinuation={san:m.san,move,text:`In this saved line, ${side(m.color)} ${intervening.length?'later':'next'} plays ${m.san}. ${movePurpose(before,future,m,opening).text} This continuation is a possibility, not a forced prediction.`,squares};
    if(!next)next=continuation;
    const plan=plans.find(p=>p.color===m.color)!;if(!plan.continuation)plan.continuation=continuation;
    intervening.push(move);

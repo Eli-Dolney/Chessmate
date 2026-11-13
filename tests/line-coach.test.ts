@@ -22,3 +22,9 @@ describe('move-by-move line coaching',()=>{
  it('recomputes for changed steps and branches without mutating the study',()=>{let s=study();const before=structuredClone(s);const a=buildLineCommentary({...s,step:1});s=addStudyLine({...s,step:0},['d2d4','d7d5'],'Other');const b=buildLineCommentary({...s,step:1});expect(a.heading).toBe('White played e4');expect(b.heading).toBe('White played d4');expect(b.currentFen).not.toBe(a.currentFen);expect(before.branches[0].moves).toEqual(opening);});
  it('only highlights future sources when the same piece is already on that current square',()=>{const n=buildLineCommentary(study(undefined,['g1f3','g8f6','f3g1','f6g8'],1));expect(n.next?.squares).toEqual(['g8','f6']);expect(n.plans.find(p=>p.color==='w')!.continuation?.squares).toEqual(['f3']);const castled=study('r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1',['e1g1','e8c8','f1e1'],0);const c=buildLineCommentary(castled);expect(c.plans.find(p=>p.color==='b')!.continuation?.squares).toEqual(['e8']);});
 });
+
+
+describe('opening lab narration',()=>{
+ it('explains current setup purposes and both sides as the branch advances',()=>{const s={...createStudy({initialFen:new Chess().fen(),moves:['e2e4']},'Caro',['c7c6','d2d4','d7d5']),kind:'opening' as const,step:1};const notes=buildLineCommentary(s);expect(notes.purpose.text).toContain('prepare …d5');expect(notes.plans.every(p=>p.evidence.text.includes('d5'))).toBe(true);const next=buildLineCommentary({...s,step:2});expect(next.heading).toBe('White played d4');expect(next.purpose.text).toContain('central pawn pair');expect(next.currentFen).not.toBe(notes.currentFen);});
+ it('prioritizes an actual check over opening setup advice',()=>{const s={...study(undefined,['e2e4','e7e6','d2d4','f8b4'],4),kind:'opening' as const},notes=buildLineCommentary(s);expect(notes.plans.find(p=>p.color==='w')!.evidence.text).toContain('must first deal with the check');expect(notes.purpose.text).toContain('legal defenses');});
+});

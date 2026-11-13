@@ -21,3 +21,9 @@ describe('independent exploration',()=>{
  it('recognizes a transposition by position and retains the last named opening',()=>{const c=new Chess();for(const m of ['d4','d5','Nf3','Nf6','Bf4'])c.move(m);const rows=[{eco:'D02',name:'London System',fen:c.fen(),moves:c.history({verbose:true}).map(m=>m.lan)}];const r=root();for(const m of ['g1f3','d7d5','d2d4','g8f6','c1f4'])r.moves.push(m);expect(recognizeOpening(rows,r).exact).toBe(true);r.moves.push('e7e6');expect(recognizeOpening(rows,r)).toEqual({entry:rows[0],exact:false});});
  it('labels strategic advice as conditional principles for either side',()=>{for(const color of ['w','b'] as const){const notes=positionPlans(new Chess().fen(),color);expect(notes.length).toBeGreaterThan(0);expect(notes.every(n=>n.kind==='principle')).toBe(true);}});
 });
+
+
+describe('opening studies',()=>{
+ it('retains opening mode through branches, replay, and backup restore',()=>{const d=defaults(),start={...createStudy({initialFen:d.current.initialFen,moves:['e2e4']},'Opening lab'),kind:'opening' as const};const first=playInStudy(start,'c7c6'),second=addStudyLine({...first,step:0},['e7e6'],'French');d.explorations=[second];d.activeExplorationId=second.id;const restored=validateBackup(JSON.parse(JSON.stringify(d)));expect(restored.explorations[0].kind).toBe('opening');expect(restored.explorations[0].branches.some(b=>b.moves[0]==='c7c6')).toBe(true);expect(restored.current).toEqual(d.current);});
+ it('accepts older studies and rejects unknown study modes',()=>{const s=createStudy(root(),'Saved');expect(()=>validateStudy(s)).not.toThrow();expect(()=>validateStudy({...s,kind:'remote'} as never)).toThrow('Invalid exploration kind');});
+});

@@ -5,7 +5,7 @@ import type {CoachingEvidence,Exploration} from './types';
 
 export default function LineCoach({study,enabled,playing,speed,onToggle,onPause,onPace,onShow,onClear,live=false,detail='detailed',onDetail}:{live?:boolean;detail?:'brief'|'detailed';onDetail?:(detail:'brief'|'detailed')=>void;study:Exploration;enabled:boolean;playing:boolean;speed:number;onToggle:(enabled:boolean)=>void;onPause:()=>void;onPace:()=>void;onShow:(fen:string,squares:string[])=>void;onClear:()=>void}){
  const branch=branchOf(study),long=detail==='detailed';
- const notes=useMemo(()=>enabled?buildLineCommentary(study):null,[enabled,study.root.initialFen,study.root.moves.join(' '),branch.moves.join(' '),study.step]);
+ const notes=useMemo(()=>enabled?buildLineCommentary(study):null,[enabled,study.kind,study.root.initialFen,study.root.moves.join(' '),branch.moves.join(' '),study.step]);
  const show=(squares?:string[])=>{if(notes&&squares?.length){onPause();onShow(notes.currentFen,squares);}};
  const evidence=(entry:CoachingEvidence,key:string)=><div key={key} className="line-coach-evidence"><p>{entry.text}</p>{!!entry.squares?.length&&<button onClick={()=>show(entry.squares)}>Show {key} on board</button>}</div>;
  return <section className="line-coach-card" aria-label="Move-by-move coach">

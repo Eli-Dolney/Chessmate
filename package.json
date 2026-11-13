@@ -1,6 +1,6 @@
 {
   "name": "chessmate",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "private": true,
   "type": "module",
   "license": "GPL-3.0-only",
@@ -10,7 +10,8 @@
     "start": "node scripts/serve.mjs",
     "test": "vitest run",
     "test:browser": "playwright test",
-    "build:openings": "node scripts/build-openings.mjs"
+    "build:openings": "node scripts/build-openings.mjs && node scripts/build-opening-choices.mjs",
+    "build:opening-choices": "node scripts/build-opening-choices.mjs"
   },
   "dependencies": {
     "chess.js": "^1.4.0",

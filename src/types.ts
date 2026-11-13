@@ -5,7 +5,7 @@ export interface CoachPreferences { detail?:'brief'|'detailed'; pauseAfterMove?:
 export interface Settings { color: Color; difficulty: Difficulty; flipped: boolean; appearance:Appearance; coach:CoachPreferences }
 export interface PositionHistory { initialFen:string; moves:string[] }
 export interface ExplorationBranch { id:string; label:string; moves:string[] }
-export interface Exploration { originalMove?:string; id:string; root:PositionHistory; branches:ExplorationBranch[]; branchId:string; step:number; label:string; source?:{gameId:string; prefix:string[]} }
+export interface Exploration { kind?:'opening'; originalMove?:string; id:string; root:PositionHistory; branches:ExplorationBranch[]; branchId:string; step:number; label:string; source?:{gameId:string; prefix:string[]} }
 export interface CandidateLine { move: string; pv: string[]; cp?: number; mate?: number; depth: number }
 export interface Analysis { fen: string; lines: CandidateLine[]; bestmove?: string; elapsed: number }
 export interface CoachingEvidence { kind: 'fact' | 'calculated' | 'principle'; text: string; squares?: string[]; annotations?: {role:'attacker'|'target'|'defender';square:string}[] }

@@ -2,6 +2,18 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.10 — try defenses from your current position
+
+Turn on **Opening help**, then choose **Try defenses from here** in Coach assistance. The opening defense lab starts at the board you are viewing, preserving its full move history. If the computer has just replied, **Try another opponent reply** opens the position before that reply and keeps the actual reply as a saved branch.
+
+Search the local reference choices by name, ECO code, or move. Choose a defense or setup to save its continuation and play the first move. Play legal moves for either side, step with **Next / Previous**, request one computer reply, or use **Play out 5 / 10 moves** to extend the line with Stockfish. **Back to starting position** lets you try another defense without deleting earlier branches. The reference list folds after a move; expand it or type a filter to browse continuations from the new position. **Try your own move** and **Find engine alternatives** remain available outside the catalog.
+
+The move coach opens with longer explanations for both sides. Its opening setup advice follows the actual pawns and pieces, with examples such as c6 supporting d5, central tension, pawn-chain bases, and fianchetto preparation. Checks and concrete capture concerns take priority. Board facts, general setup ideas, catalog reference lines, and calculated options are labeled separately; none claims to know an opponent's intentions. The existing explanation toggles remain available.
+
+Your real game stays paused during the lab. **Return to game** resumes it with your current play/coaching settings. **Use this move** is available only when the lab began at your current live decision; it applies just the first tested move. Exploring a different opponent reply never rewrites the game. Lab branches and cursor survive reopening and JSON backup restoration; older studies and version 3 backups remain compatible.
+
+The pinned CC0 opening catalog now also supplies a locally generated index of **5,579 positions and 8,192 legal next-move references**, recognizing transpositions by board state. The lazy-loaded index requires no online service and contains no popularity or win-rate claims. `npm run build:openings` regenerates both catalog files; `npm run build:opening-choices` rebuilds only this index. Existing glass boards, pieces, launchers, and browser origin are unchanged.
+
 ## New in 1.9 — choose how much coaching you want
 
 Use **Play & coaching** above the board at any point, including halfway through a game:
