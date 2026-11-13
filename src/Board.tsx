@@ -8,24 +8,24 @@ const BoardScene=lazy(()=>import('./BoardScene'));
 const paths:Record<PieceSymbol,React.ReactNode>={
  p:<><circle cx="22.5" cy="12" r="5"/><path d="M18 18h9l-2 8 5 7H15l5-7z"/><path d="M13 34h19v5H13z"/></>,
  r:<><path d="M11 7h6v6h4V7h4v6h4V7h6v13l-5 4 1 11H14l1-11-4-4z"/><path d="M11 35h24v4H11zM15 21h15"/></>,
- n:<><path d="M12 34c0-8 6-11 10-16l-7 4-6-4 8-11 1-4 7 3c11 4 12 16 9 28z"/><path d="M11 35h25v4H11z"/><circle cx="21" cy="12" r="1.4" fill="currentColor"/><path d="M28 12c3 6 2 11-2 16" fill="none"/></>,
+ n:<><path d="M12 34c0-8 6-11 10-16l-7 4-6-4 8-11 1-4 7 3c11 4 12 16 9 28z"/><path d="M11 35h25v4H11z"/><circle cx="21" cy="12" r="1.4" fill="currentColor" stroke="none"/><path d="M28 12c3 6 2 11-2 16" fill="none"/></>,
  b:<><path d="M22.5 5c-3 4-9 8-9 13 0 4 4 6 9 6s9-2 9-6c0-5-6-9-9-13z"/><path d="M23 10l-4 8M18 25h9l3 9H15zM11 35h23v4H11z"/></>,
  q:<><path d="M10 13l5 18h15l5-18-9 10-3.5-15L19 23z"/><circle cx="9" cy="10" r="3"/><circle cx="22.5" cy="5" r="3"/><circle cx="36" cy="10" r="3"/><path d="M14 31h17v4H14zM11 36h23v3H11z"/></>,
- k:<><path d="M22.5 3v10M18 7h9" fill="none" strokeWidth="3"/><path d="M22.5 15c-7-7-16 0-12 7l6 10h13l6-10c4-7-5-14-12.5-7zM15 32h15v3H15zM12 36h21v3H12z"/></>
+ k:<><path d="M21 2h3v4h4v3h-4v5h-3V9h-4V6h4z"/><path d="M22.5 15c-7-7-16 0-12 7l6 10h13l6-10c4-7-5-14-12.5-7zM15 32h15v3H15zM12 36h21v3H12z"/></>
 };
 const porcelainPaths:Record<PieceSymbol,React.ReactNode>={
  p:<><circle cx="22.5" cy="12" r="5"/><path d="M19 18h7c-2 6-1 11 4 16H15c5-5 6-10 4-16zM12 35h21v4H12z"/></>,
  r:<><path d="M11 7h6v6h3V7h5v6h3V7h6v13H11zM16 20h13l-2 13h-9zM12 34h21v5H12z"/></>,
- n:<><path d="M13 33c0-7 7-11 10-15l-8 3-5-5 7-8 1-5 9 5c8 6 8 15 5 25zM11 35h24v4H11z"/><circle cx="21" cy="12" r="1.3" fill="currentColor"/><path d="M28 14q4 8-2 14" fill="none"/></>,
+ n:<><path d="M13 33c0-7 7-11 10-15l-8 3-5-5 7-8 1-5 9 5c8 6 8 15 5 25zM11 35h24v4H11z"/><circle cx="21" cy="12" r="1.3" fill="currentColor" stroke="none"/><path d="M28 14q4 8-2 14" fill="none"/></>,
  b:<><path d="M22.5 5c-12 9-11 18 0 19 11-1 12-10 0-19zM19 25h7l4 8H15zM12 35h21v4H12z"/><path d="M24 10l-5 9" fill="none"/></>,
  q:<><path d="M10 12l7 5 5.5-10 5.5 10 7-5-5 19H15zM13 33h19v6H13z"/><circle cx="10" cy="9" r="2"/><circle cx="22.5" cy="5" r="2"/><circle cx="35" cy="9" r="2"/></>,
- k:<><path d="M22.5 3v10M18 7h9" fill="none" strokeWidth="2.5"/><path d="M16 14h13l3 8-5 10h-9l-5-10zM12 34h21v5H12z"/></>
+ k:<><path d="M21 2h3v4h4v3h-4v5h-3V9h-4V6h4z"/><path d="M16 14h13l3 8-5 10h-9l-5-10zM12 34h21v5H12z"/></>
 };
 export function Piece({type,color,style}:{type:PieceSymbol;color:Color;style?:PieceStyle}){
  const appearance=useContext(AppearanceContext),finish=style??appearance.pieces,id=useId().replace(/:/g,''),white=color==='w';
  if(finish==='wood'||finish==='frosted'||finish==='metal'||finish==='future')return <RoomPiece type={type} white={white} finish={finish} id={id} shape={porcelainPaths[type]}/>;
  const modern=['porcelain','gilded','neon'].includes(finish);
- const edge=finish==='gilded'?(white?'#fff1b4':'#f2c781'):finish==='neon'?(white?'#a4ffff':'#ffb7ef'):white?'#536879':'#d2dbe3';
+ const edge=finish==='gilded'?(white?'#89642c':'#f2c781'):finish==='neon'?(white?'#24788a':'#ffb7ef'):white?'#536879':'#d2dbe3';
  const fill=modern?(finish==='neon'?(white?'#b4ffff':'#331239'):`url(#${id}-material)`):finish==='classic'?(white?'#fff9e8':'#253d35'):`url(#${id}-surface)`;
  return <svg viewBox="0 0 45 45" aria-hidden="true" className={`piece ${color} finish-${finish}`} style={{color:white?'#26394e':'#eddbff'}}>
  {modern&&<defs><linearGradient id={`${id}-material`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={finish==='gilded'?(white?'#fff6cc':'#a8854c'):(white?'#ffffff':'#667988')}/><stop offset=".48" stopColor={finish==='gilded'?(white?'#e6b957':'#302316'):(white?'#f0eee5':'#202c3a')}/><stop offset=".7" stopColor={finish==='gilded'?(white?'#b98532':'#654c28'):(white?'#bac6cb':'#101922')}/><stop offset="1" stopColor={finish==='gilded'?(white?'#ffe9a1':'#251d16'):(white?'#fffdf2':'#425463')}/></linearGradient></defs>}
@@ -34,7 +34,7 @@ export function Piece({type,color,style}:{type:PieceSymbol;color:Color;style?:Pi
  <radialGradient id={`${id}-cloud`}><stop stopColor={white?'#9394ff':'#f16ace'} stopOpacity=".85"/><stop offset=".5" stopColor={white?'#53d4f0':'#7b47d3'} stopOpacity=".5"/><stop offset="1" stopColor="#6056cf" stopOpacity="0"/></radialGradient>
  <pattern id={`${id}-surface`} width="45" height="45" patternUnits="userSpaceOnUse"><rect width="45" height="45" fill={`url(#${id}-base)`}/>{finish==='galaxy'?<><ellipse cx="22" cy="24" rx="23" ry="11" transform="rotate(-32 22 24)" fill={`url(#${id}-cloud)`}/><path d="M8 37Q32 22 28 7" fill="none" stroke={white?'#ffffff':'#cd98ff'} opacity=".3" strokeWidth="2.5"/><g fill={white?'#ffffff':'#fceaff'}>{[[19,10,.65],[25,14,.5],[17,21,.6],[27,24,.8],[21,30,.5],[14,35,.7],[29,36,.4],[23,19,.35],[31,17,.4],[18,28,.35],[32,12,.6]].map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r}/>)}</g><path d="M23 24v4m-2-2h4" stroke="#fff" strokeWidth=".7" opacity=".8"/></>:<><path d="M12 4l8 32 8-22 5 25H11z" fill={white?'#ffffff':'#c4d5ef'} opacity=".38"/><path d="M27 8L15 29l18 4z" fill={white?'#619aaf':'#080e22'} opacity=".4"/><path d="M11 13l18 12M14 34l17-24" stroke="#f4f9ff" strokeWidth=".65" opacity=".55"/></>}</pattern>
  </defs>}
- <g fill={fill} stroke={modern?edge:finish==='classic'?(white?'#40534b':'#b8c8ad'):(white?'#eefaff':'#d3a4fa')} strokeWidth={finish==='classic'?1.6:1.15} strokeLinejoin="round" strokeLinecap="round">{finish==='porcelain'?porcelainPaths[type]:paths[type]}</g>
+ <g fill={fill} stroke={modern?edge:finish==='classic'?(white?'#40534b':'#b8c8ad'):(white?'#658298':'#d3a4fa')} strokeWidth={finish==='classic'?1.6:1.15} strokeLinejoin="round" strokeLinecap="round">{finish==='porcelain'?porcelainPaths[type]:paths[type]}</g>
  {!modern&&finish!=='classic'&&<path d="M15 37h15" stroke={white?'#ffffff':'#e7b6ff'} strokeWidth=".75" opacity=".8"/>}
  </svg>;
 }

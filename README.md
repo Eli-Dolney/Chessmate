@@ -2,6 +2,12 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.11.1 — clearer pieces
+
+All ten piece finishes received a readability pass. Filled, outlined king crosses stay visible on light and dark squares, knight eyes have their own contrasting color, and pale galaxy, crystal, gilded, and neon pieces have clearer edges and internal details. The changes also apply to Style studio and promotion choices, including when shadows are off.
+
+The 3D sets have a continuous horse-shaped knight, recessed rook crowns, visible bishop seams, and a clearer king cross. Metallic and gilded pieces use a small, locally generated reflection texture to keep their contours visible. Porcelain uses ivory and ink tones in both views. Choose any set in **Style studio → Your pieces**; existing games, saved looks, and controls work as before.
+
 ## New in 1.11 — build your chess room
 
 Open **Style studio** to combine a **Cozy study**, **Space platform**, **Rainy window**, or **Tournament room** with any board palette. **Original room** keeps the familiar look. Choose **Preview 3D** to look around the local scene, or **Preview 2D** for a flat-board preview. The preview never changes your game. Choose **3D · Table view** on the playing board to use the room while playing; orbit, zoom, and keyboard camera controls still work.

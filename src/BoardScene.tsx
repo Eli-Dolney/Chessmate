@@ -15,24 +15,61 @@ function dispose(group:T.Object3D){
  geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
 }
 function galaxy(white:boolean){const canvas=document.createElement('canvas');canvas.width=canvas.height=256;const c=canvas.getContext('2d')!;const g=c.createLinearGradient(0,0,256,256);g.addColorStop(0,white?'#d4fbff':'#261338');g.addColorStop(.45,white?'#789bcf':'#9256c0');g.addColorStop(.7,white?'#d9e7ff':'#382469');g.addColorStop(1,white?'#65c6cf':'#191c48');c.fillStyle=g;c.fillRect(0,0,256,256);for(let i=0;i<90;i++){c.fillStyle=i%3?'#ffffff80':'#fff';c.beginPath();c.arc((i*73)%256,(i*117+31)%256,i%7===0?1.7:.6,0,Math.PI*2);c.fill();}const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;return texture;}
-function pieceMaterial(white:boolean,appearance:Appearance){
- const style=appearance.pieces,room=roomFor(appearance),faceted=style==='crystal'||style==='future';
- const colors=style==='gilded'?[0xf0cb78,0x5b3b25]:style==='neon'||style==='future'?[0x9ff6ff,0x50385f]:style==='metal'?[0xdce5ea,0x534135]:style==='frosted'?[0xe4f6fc,0x405a86]:style==='classic'?[0xf4ebd1,0x244336]:[0xd7edf5,0x583876];
- return new T.MeshPhysicalMaterial({color:style==='galaxy'||style==='wood'?0xffffff:colors[white?0:1],map:style==='galaxy'?galaxy(white):style==='wood'?surfaceTexture('wood',white):null,metalness:style==='metal'?.86:style==='gilded'?.72:style==='future'?.55:style==='wood'||style==='frosted'?0:.15,roughness:style==='frosted'?.72:style==='wood'?.5:style==='porcelain'?.22:.3,clearcoat:style==='frosted'?.2:1,clearcoatRoughness:.18,flatShading:faceted,emissive:style==='neon'||style==='future'?colors[white?0:1]:0,emissiveIntensity:room.effects?.2:0});
+// A tiny, original studio reflection gives metal readable highlights even without a room texture.
+function metalReflection(){
+ const faces=Array.from({length:6},(_,side)=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=64;const c=canvas.getContext('2d')!,g=c.createLinearGradient(0,0,64,64);g.addColorStop(0,side===2?'#f7f0de':'#7e8b9d');g.addColorStop(.4,'#354352');g.addColorStop(.48,'#d3dce1');g.addColorStop(.6,'#5c6a7b');g.addColorStop(1,side===3?'#2e3440':'#8795aa');c.fillStyle=g;c.fillRect(0,0,64,64);return canvas;});
+ const texture=new T.CubeTexture(faces);texture.colorSpace=T.SRGBColorSpace;texture.needsUpdate=true;return texture;
 }
-function piece(type:PieceSymbol,white:boolean,appearance:Appearance,material:T.MeshPhysicalMaterial){
+function pieceMaterial(white:boolean,appearance:Appearance,reflection:T.CubeTexture|null){
+ const style=appearance.pieces,room=roomFor(appearance),faceted=style==='crystal'||style==='future';
+ const colors=style==='gilded'?[0xe9c373,0x78513a]:style==='neon'||style==='future'?[0x9ff6ff,0x50385f]:style==='metal'?[0xcbd7e0,0x705747]:style==='frosted'?[0xe4f6fc,0x405a86]:style==='porcelain'?[0xe7e5dc,0x283848]:style==='classic'?[0xe8ddc1,0x244336]:[0xd7edf5,0x583876];
+ return new T.MeshPhysicalMaterial({color:style==='galaxy'||style==='wood'?0xffffff:colors[white?0:1],map:style==='galaxy'?galaxy(white):style==='wood'?surfaceTexture('wood',white):null,envMap:reflection,envMapIntensity:reflection?.65:0,metalness:style==='metal'?.7:style==='gilded'?.65:style==='future'?.55:style==='wood'||style==='frosted'?0:.15,roughness:style==='frosted'?.72:style==='wood'?.5:style==='porcelain'?.22:.3,clearcoat:style==='frosted'?.2:1,clearcoatRoughness:.18,flatShading:faceted,emissive:style==='neon'||style==='future'?colors[white?0:1]:0,emissiveIntensity:room.effects?.2:0});
+}
+function piece(type:PieceSymbol,white:boolean,appearance:Appearance,material:T.MeshPhysicalMaterial,eyeMaterial:T.Material,grooveMaterial:T.Material){
  const g=new T.Group(),style=appearance.pieces,faceted=style==='crystal'||style==='future';
- const mesh=(geometry:T.BufferGeometry,y=0,x=0,z=0)=>{const m=new T.Mesh(geometry,material);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;g.add(m);return m;};
- const tall=type==='q'||type==='k',height=type==='p'?.5:tall?.91:.72;
- const profile=[[.01,0],[.31,0],[.34,.06],[.34,.12],[.28,.17],[.26,.22],[.17,.28],[.13,height-.12],[.23,height-.06],[.24,height],[.01,height]];
- mesh(new T.LatheGeometry(profile.map(([x,y])=>new T.Vector2(x,y)),style==='future'?6:faceted?10:28));
- if(style==='future'){for(const y of [.19,.28]){const ring=mesh(new T.TorusGeometry(.26,.025,6,12),y);ring.rotation.x=Math.PI/2;}}
- if(type==='p')mesh(new T.SphereGeometry(.18,20,14),height+.15);
- if(type==='b'){const head=mesh(new T.SphereGeometry(.19,faceted?8:20,14),height+.2);head.scale.y=1.5;mesh(new T.SphereGeometry(.065,12,8),height+.49);const slit=new T.Mesh(new T.BoxGeometry(.03,.28,.36),new T.MeshStandardMaterial({color:0x15182a}));slit.position.y=height+.25;slit.rotation.z=-.4;g.add(slit);}
- if(type==='r'){mesh(new T.CylinderGeometry(.29,.24,.19,24),height+.08);for(let i=0;i<6;i++)mesh(new T.BoxGeometry(.15,.16,.15),height+.23,Math.cos(i*Math.PI/3)*.22,Math.sin(i*Math.PI/3)*.22);}
- if(type==='q'){mesh(new T.SphereGeometry(.16,20,14),height+.12);for(let i=0;i<5;i++){const x=Math.cos(i*Math.PI*.4)*.19,z=Math.sin(i*Math.PI*.4)*.19;mesh(new T.ConeGeometry(.075,.28,12),height+.25,x,z);mesh(new T.SphereGeometry(.055,10,8),height+.4,x,z);}}
- if(type==='k'){mesh(new T.SphereGeometry(.18,20,14),height+.12);mesh(new T.BoxGeometry(.09,.38,.09),height+.4);mesh(new T.BoxGeometry(.3,.09,.09),height+.46);}
- if(type==='n'){const shape=new T.Shape();shape.moveTo(-.23,0);shape.lineTo(.19,0);shape.lineTo(.12,.25);shape.lineTo(.36,.32);shape.lineTo(.34,.48);shape.lineTo(.16,.64);shape.lineTo(.11,.8);shape.lineTo(-.03,.65);shape.lineTo(-.17,.58);shape.lineTo(-.28,.3);shape.closePath();const head=mesh(new T.ExtrudeGeometry(shape,{depth:.23,bevelEnabled:true,bevelThickness:.035,bevelSize:.035,bevelSegments:2,steps:1}),.3,0,-.115);head.rotation.y=white?-Math.PI/2:Math.PI/2;}
+ const mesh=(geometry:T.BufferGeometry,y=0,x=0,z=0,finish:T.Material=material,parent:T.Group=g)=>{const m=new T.Mesh(geometry,finish);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;};
+ const height=type==='p'?.48:type==='q'?.85:type==='k'?.94:type==='r'?.64:.68;
+ const profile=type==='n'
+  ?[[.01,0],[.3,0],[.34,.05],[.34,.12],[.28,.18],[.25,.22],[.24,.29],[.01,.29]]
+  :[[.01,0],[.3,0],[.34,.05],[.34,.12],[.28,.18],[.25,.23],[.17,.3],[.13,height-.12],[.22,height-.06],[.24,height],[.01,height]];
+ mesh(new T.LatheGeometry(profile.map(([x,y])=>new T.Vector2(x,y)),style==='future'?6:faceted?10:32));
+ if(style==='future'){for(const y of [.16,.24]){const ring=mesh(new T.TorusGeometry(.27,.018,6,12),y);ring.rotation.x=Math.PI/2;}}
+ if(type==='p')mesh(new T.SphereGeometry(.18,faceted?12:24,16),height+.15);
+ if(type==='b'){
+  const head=mesh(new T.SphereGeometry(.19,faceted?10:28,20),height+.2);head.scale.y=1.5;
+  mesh(new T.SphereGeometry(.05,14,10),height+.5);
+  // Shallow contrasting seams follow the mitre's surface on both faces, rather than a box through its center.
+  for(const sign of [-1,1]){const points=[];for(let i=0;i<=16;i++){const t=i/16,x=-.09+.17*t,y=-.06+.27*t,z=Math.sqrt(Math.max(.001,.19*.19-x*x-(y/1.5)**2))+.003;points.push(new T.Vector3(x,height+.2+y,sign*z));}mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points),20,.013,6,false),0,0,0,grooveMaterial);}
+ }
+ if(type==='r'){
+  mesh(new T.CylinderGeometry(.28,.23,.18,faceted?12:32),height+.08);
+  const inset=mesh(new T.CircleGeometry(.17,24),height+.175,0,0,grooveMaterial);inset.rotation.x=-Math.PI/2;
+  for(let i=0;i<4;i++){const angle=i*Math.PI/2,crenel=mesh(new T.BoxGeometry(.17,.16,.19),height+.22,Math.cos(angle)*.225,Math.sin(angle)*.225);crenel.rotation.y=-angle;}
+ }
+ if(type==='q'){
+  mesh(new T.SphereGeometry(.14,20,14),height+.1);
+  const crown=mesh(new T.TorusGeometry(.2,.035,8,24),height+.1);crown.rotation.x=Math.PI/2;
+  for(let i=0;i<5;i++){const x=Math.cos(i*Math.PI*.4)*.19,z=Math.sin(i*Math.PI*.4)*.19;mesh(new T.ConeGeometry(.065,.26,faceted?6:12),height+.24,x,z);mesh(new T.SphereGeometry(.05,12,8),height+.38,x,z);}
+ }
+ if(type==='k'){
+  mesh(new T.SphereGeometry(.17,24,16),height+.11);
+  mesh(new T.BoxGeometry(.115,.43,.115),height+.43);
+  mesh(new T.BoxGeometry(.35,.11,.115),height+.5);
+ }
+ if(type==='n'){
+  // A low plinth supports one continuous horse neck. Its muzzle points toward the opponent.
+  const horse=new T.Group();horse.position.y=.27;horse.rotation.y=white?Math.PI/3:-2*Math.PI/3;g.add(horse);
+  const shape=new T.Shape();shape.moveTo(-.24,0);shape.bezierCurveTo(-.29,.18,-.27,.4,-.19,.59);shape.quadraticCurveTo(-.14,.72,.025,.7);shape.bezierCurveTo(.15,.64,.26,.56,.36,.49);shape.lineTo(.36,.37);shape.lineTo(.22,.34);shape.lineTo(.095,.41);shape.bezierCurveTo(.035,.29,.075,.12,.22,0);shape.closePath();
+  const geometry=new T.ExtrudeGeometry(shape,{depth:.22,curveSegments:faceted?4:16,bevelEnabled:true,bevelThickness:.055,bevelSize:.045,bevelSegments:faceted?1:5,steps:1});geometry.translate(0,0,-.11);mesh(geometry,0,0,0,material,horse);
+  const cheek=mesh(new T.SphereGeometry(.15,faceted?10:24,16),.48,.08,0,material,horse);cheek.scale.set(.85,1.05,1.25);
+  const muzzle=mesh(new T.SphereGeometry(.12,faceted?10:24,16),.425,.285,0,material,horse);muzzle.scale.set(1.05,.65,1.38);
+  for(const sign of [-1,1]){
+   const ear=mesh(new T.ConeGeometry(.058,.25,faceted?5:12),.77,-.055,sign*.10,material,horse);ear.rotation.z=.16;ear.rotation.x=sign*.12;ear.scale.z=.75;
+   const eye=mesh(new T.SphereGeometry(.027,12,8),.57,.135,sign*.18,eyeMaterial,horse);eye.scale.z=.4;
+   const nostril=mesh(new T.SphereGeometry(.014,10,6),.435,.325,sign*.155,grooveMaterial,horse);nostril.scale.z=.35;
+   const mane=new T.CatmullRomCurve3([new T.Vector3(-.18,.1,sign*.172),new T.Vector3(-.16,.28,sign*.172),new T.Vector3(-.10,.47,sign*.172),new T.Vector3(-.055,.62,sign*.172)]);mesh(new T.TubeGeometry(mane,12,.009,5,false),0,0,0,grooveMaterial,horse);
+  }
+ }
  return g;
 }
 export default function BoardScene(props:Props){
@@ -64,10 +101,11 @@ export default function BoardScene(props:Props){
   const zoom=(factor:number)=>{const offset=camera.position.clone().sub(controls.target);offset.setLength(T.MathUtils.clamp(offset.length()*factor,9,24));camera.position.copy(controls.target).add(offset);controls.update();render();};
   const update=()=>{
    scene.remove(pieces,marks);dispose(pieces);dispose(marks);pieces=new T.Group();marks=new T.Group();scene.add(pieces,marks);
-   const p=latest.current,board=new Chess(p.fen),pieceFinishes=[pieceMaterial(true,p.appearance),pieceMaterial(false,p.appearance)];for(const row of board.board())for(const entry of row){if(!entry)continue;const model=piece(entry.type,entry.color==='w',p.appearance,pieceFinishes[entry.color==='w'?0:1]);model.position.copy(point(entry.square));model.traverse(o=>o.userData.square=entry.square);pieces.add(model);}
+   const p=latest.current,board=new Chess(p.fen),reflection=['metal','gilded'].includes(p.appearance.pieces)?metalReflection():null,pieceFinishes=[pieceMaterial(true,p.appearance,reflection),pieceMaterial(false,p.appearance,reflection)],eyes=[new T.MeshStandardMaterial({color:0x172737,roughness:.4}),new T.MeshStandardMaterial({color:0xdfded0,roughness:.4})],groove=new T.MeshStandardMaterial({color:0x15202b,roughness:.85});for(const row of board.board())for(const entry of row){if(!entry)continue;const model=piece(entry.type,entry.color==='w',p.appearance,pieceFinishes[entry.color==='w'?0:1],eyes[entry.color==='w'?0:1],groove);model.position.copy(point(entry.square));model.traverse(o=>o.userData.square=entry.square);pieces.add(model);}
    const ring=(square:string,color:number,solid=false)=>{const m=new T.Mesh(solid?new T.CircleGeometry(.13,24):new T.RingGeometry(.36,.41,32),new T.MeshBasicMaterial({color,side:T.DoubleSide,depthTest:false,transparent:true,opacity:.92}));m.rotation.x=-Math.PI/2;m.position.copy(point(square,.14));m.renderOrder=2;marks.add(m);};
    if(p.last){ring(p.last.slice(0,2),0xe6ca80);ring(p.last.slice(2,4),0xe6ca80);}if(p.selected)ring(p.selected,0x63e6dc);p.targets.forEach(s=>ring(s,0x63e6dc,!board.get(s as Square)));p.marked.forEach(s=>ring(s,0xf3a0dc));
    for(const a of p.arrows){const from=point(a.move.slice(0,2),.2),to=point(a.move.slice(2,4),.2),direction=to.clone().sub(from),length=direction.length(),color=a.kind==='original'?0xffc777:a.kind==='alternative'?0x63e6dc:0xf3a0dc;direction.normalize();const material=new T.MeshBasicMaterial({color,depthTest:false,transparent:true,opacity:.9});const shaft=new T.Mesh(new T.CylinderGeometry(.045,.045,Math.max(.01,length-.25),10),material);shaft.position.copy(from).addScaledVector(direction,(length-.25)/2);shaft.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),direction);shaft.renderOrder=5;const tip=new T.Mesh(new T.ConeGeometry(.17,.35,16),material);tip.position.copy(to).addScaledVector(direction,-.1);tip.quaternion.copy(shaft.quaternion);tip.renderOrder=5;marks.add(shaft,tip);}
+   for(const finish of [...eyes,groove]){let used=false;pieces.traverse(o=>{if(o instanceof T.Mesh&&o.material===finish)used=true;});if(!used)finish.dispose();}
    canvas.dataset.position=p.fen;canvas.dataset.pieces=String(pieces.children.length);canvas.dataset.arrows=String(p.arrows.length);render();
   };
   const lighting=()=>{const settings=roomFor(latest.current.appearance);renderer.shadowMap.enabled=settings.shadows;sun.castShadow=settings.shadows;sun.color.set(settings.lightColor);sun.intensity=4*settings.brightness;ambientLight.intensity=2.6*settings.brightness;rim.intensity=2*settings.brightness;canvas.dataset.light=settings.lightColor;canvas.dataset.brightness=String(settings.brightness);canvas.dataset.shadows=String(settings.shadows);render();};

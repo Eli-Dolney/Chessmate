@@ -1,5 +1,14 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.11.1 — piece readability and 3D shape polish
+
+- Production build and **336 unit tests passed**. **19 distinct existing Edge browser scenarios passed** across appearance, rooms, 3D interactions, comparison, and offline reopening. The six 3D/comparison scenarios passed again after the final knight refinement. No new dependencies or remote assets were added.
+- Visually inspected every 2D finish: six piece types, both colors, light/dark backgrounds, and 54/40/32px sizes. Repeated the comparison with shadows off under the light theme. Filled king crosses, explicit knight pupils, and stronger pale-piece contours resolve the observed readability problems without clipping crowns or promotion symbols.
+- Visually inspected all ten 3D finishes and material contrast at low/high lighting. Refined the knight's intersecting stem and flat ear bar into a continuous neck, rounded cheek/muzzle, paired ears, and a forward-facing profile; improved bishop seams, rook crowns, king crosses, and metal highlights. Reflection textures are generated locally and disposed with the piece materials.
+- Regression checks cover camera rotation/zoom, rotated Black play, promotion, 2D/3D switching, mobile width, reduced motion, graphics interruption/fallback, arrows, saved appearance presets, backup restoration, and exact pending-game preservation. Existing chess/lesson unit coverage passes; unrelated full lesson/review/guided-practice browser suites were not repeated.
+- Additional isolated browser checks exercised both knights in every finish, rotated Black selection, metallic/futuristic knight captures, and all four promotion choices for both colors in those two finishes. The flat board matched the 3D positions; returning from exploration restored the exact pending game. No page errors or nonlocal requests were observed.
+- Separate Windows/Mac launchers, backup schema 3, and the fixed browser origin are unchanged. Actual macOS/M4 execution remains unverified.
+
 ## Chessmate 1.11.0 — rooms, materials, and personal looks
 
 - Production build and **336 unit tests passed**. Fifteen new tests cover room/preset validation, unchanged legacy appearance shapes, clone ownership, names and twelve-look limits, old-backup compatibility, rejection before data replacement, and synthesized-audio allocation/stop/disconnect/disposal.
