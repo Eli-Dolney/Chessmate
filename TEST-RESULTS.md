@@ -1,4 +1,16 @@
-# Verification — 2026-10-30
+# Verification — 2026-11-13
+
+## Chessmate 1.3.0 — understand, practice, review
+
+- Windows Setup completed a clean `npm ci` using the pinned project-local Node runtime, then the TypeScript/Vite production build passed. System Node was unchanged.
+- **213 unit tests passed**, including 22 new cases for guided-session selection and topic rotation, deduplication, hints/missed-answer scheduling, v1/v2 migration, persisted training branches, review color/history/scores, cached results, malformed data, and annotated threats.
+- **37 distinct Edge browser scenarios passed**: the full 36-scenario suite, followed by final targeted rechecks and an additional review-return regression. Coverage includes all 84 lesson solutions, castling, en passant, underpromotion, checkmate, stalemate, repetition, undo/redo, free exploration, stale engine results, failure/restart, guided retries/skips/resumption, capture inspection, board highlights, imported review color choice, cancel/resume, exact pending-game restoration, keyboard controls, narrow layouts, and reduced motion.
+- Two offline workflows block non-loopback requests and close/reopen real isolated browser profiles. The new workflow completes all six guided positions and analyzes a saved game; its practice results and review analysis survive reopening. No external application requests were observed. User browser profiles were not modified by tests.
+- Windows launch checks passed on port 4173: an unrelated listener was rejected; Stop refused an unrelated PowerShell process; Launch started a healthy server; a repeated launch reused its PID; Stop terminated only its own verified Node server.
+- Mac: all seven shell/command files passed Bash syntax checks, plus **14 mocked scenarios** covering Apple Silicon/Intel selection, unsupported OS/architecture, paths with spaces, occupied/unrelated ports, existing server reuse, no-browser launch, PID ownership, missing runtime, and checksum rejection before extraction. Official Node 22.23.4 macOS archive SHA-256 values were read from nodejs.org before pinning.
+- **Actual macOS/M4 execution remains unverified.** Mocked checks do not validate Finder/Gatekeeper behavior or Safari execution. No claim of an actual Mac run is made.
+- Authored chess content and engine files are unchanged. The existing deeper tactical reports below remain applicable; capture inspection and review display measured Stockfish lines rather than introducing new authored tactical claims.
+- The optional opening-name data chunk still triggers Vite's >500 kB advisory. It remains lazy-loaded local data, with no runtime network dependency.
 
 ## Chessmate 1.2.1 — naming and repository setup
 

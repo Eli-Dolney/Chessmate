@@ -20,7 +20,7 @@ export function inspectPosition(fen:string,player:Color):CoachingEvidence[] {
  const threats=legalCaptures(c,other(player)).filter(m=>m.captured!=='p').slice(0,3);
  for(const m of threats){
    const hypothetical=new Chess(c.fen().split(' ').map((v,i)=>i===1?other(player):i===3?'-':v).join(' '));
-   try{hypothetical.move(m.san);const recaptures=legalCaptures(hypothetical,player,m.to);evidence.push({kind:'fact',text:`${m.to}: your ${names[m.captured!]} can be captured by the ${names[m.piece]} on ${m.from}${recaptures.length?' (you have a legal recapture).':'; no immediate legal recapture is available.'} This alone does not prove the capture is good.`,squares:[m.from,m.to]});}catch{/* Skip impossible hypothetical positions. */}
+   try{hypothetical.move(m.san);const recaptures=legalCaptures(hypothetical,player,m.to);evidence.push({kind:'fact',text:`${m.to}: your ${names[m.captured!]} can be captured by the ${names[m.piece]} on ${m.from}${recaptures.length?' (you have a legal recapture).':'; no immediate legal recapture is available.'} This alone does not prove the capture is good.`,squares:[m.from,m.to],annotations:[{role:'attacker',square:m.from},{role:'target',square:m.to},...recaptures.map(r=>({role:'defender' as const,square:r.from}))]});}catch{/* Skip impossible hypothetical positions. */}
  }
  const home=player==='w'?'1':'8';
  const undeveloped=pieces(c).filter(p=>p.color===player&&(['b','n'].includes(p.type))&&p.square[1]===home);

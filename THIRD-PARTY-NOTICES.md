@@ -7,7 +7,7 @@ Version 1.1 adds original procedural galaxy/crystal SVG finishes, glass board CS
 - Stockfish.js **18.0.8**, Stockfish **18**, GPL-3.0: https://github.com/nmrugg/stockfish.js/tree/v18.0.8 . Unmodified lite single-threaded engine JS/WASM files are bundled. The matching source including build scripts is included in `vendor/stockfish-source-v18.0.8.zip`. Follow its README to build with Emscripten. Corresponding license: `public/licenses/stockfish.txt`.
 - chess.js, BSD-2-Clause: https://github.com/jhlywa/chess.js . License: `public/licenses/chess-js.txt`.
 - React and React DOM, MIT: https://github.com/facebook/react . Licenses: `public/licenses/react.txt` and `public/licenses/react-dom.txt`.
-- Node.js **22.23.4** runtime, including its bundled third-party components: `.runtime/node-v22.23.4-win-x64/LICENSE`. Downloaded from nodejs.org and checked against its published SHA-256 checksum.
+- Node.js **22.23.4** runtime, including its bundled third-party components: `.runtime/node-v22.23.4-<platform>-<architecture>/LICENSE` (Windows x64, macOS arm64, or macOS x64). Downloaded from nodejs.org and checked against its published SHA-256 checksum.
 - Vite, TypeScript, Vitest, Playwright, and fake-indexeddb are development dependencies; their licenses remain in node_modules. Exact dependency versions and integrity hashes are recorded in package-lock.json.
 
 No remote fonts, analytics, proprietary lessons, or third-party artwork are loaded by the application. Chess opening names and move sequences describe the game; all explanations in this app were authored for this project.
