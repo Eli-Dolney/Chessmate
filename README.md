@@ -2,6 +2,14 @@
 
 Your free, local chess companion — a play on **checkmate**. Formerly LTW-Chess. The app, engine, lessons, and progress work without an internet connection after setup.
 
+## New in 1.5 — more room, more purposeful practice
+
+The play area now uses the available desktop width. On wide screens, the board grows with the viewport and the coach and move notebook sit side by side. Lessons, review, and the learning library also expand while phone layouts remain stacked.
+
+In **Opening practice → Practice with a purpose**, choose one of twelve openings for a focused session, or choose **Defend your king**, **Find a tactic**, **Finish the attack**, **Build a better position**, **Convert the endgame**, or **Defend against traps**. Sessions contain up to six positions from your chosen focus, with due reviews first and less-practiced positions next. Hints, retry, exploration, saved progress, and spaced repetition work just as in balanced sessions. A visible replacement warning appears if another session is paused; recorded results stay saved.
+
+There are now **96 authored exercises across 21 modules**. Twelve new positions cover check responses, mate in one, and promotion decisions for both colors. The previous opening lessons and exercise IDs are preserved. Existing backups migrate as before; the optional session label is included in version 3 backups.
+
 ## New in 1.4 — a room of your own
 
 Style studio now has eight boards and six piece sets, with a large live preview. New boards: **Ember**, **Deep Sea**, **Walnut**, and **Neon**. New pieces: **Porcelain** (distinct sculpted shapes), **Gilded**, and **Neon**. All artwork and materials are original SVG/CSS and work offline.

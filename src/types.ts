@@ -16,7 +16,7 @@ export interface OpeningModule { id: string; title: string; subtitle: string; co
 export interface PracticeRecord { id: string; exerciseId?: string; moment?: LearningMoment; stage: number; due: string; lastSession: string; missed: boolean; attempts: number }
 export type LearningTopic='opening'|'tactics'|'strategy'|'endgame';
 export interface TrainingItem { record:PracticeRecord; topic:LearningTopic; result:'pending'|'solved'|'assisted'|'skipped'; missed:boolean; revealed:boolean; hint:number; answer?:string }
-export interface TrainingSession { id:string; items:TrainingItem[]; cursor:number; created:string; study?:Exploration }
+export interface TrainingSession { label?:string; id:string; items:TrainingItem[]; cursor:number; created:string; study?:Exploration }
 export interface ReviewEntry { ply:number; moment:LearningMoment }
 export interface GameReview { id:string; gameId:string; position:PositionHistory; color:Color; entries:ReviewEntry[]; search:{time:number;skill:20}; selected:number; study?:Exploration }
 export interface AppData { version: 3; settings: Settings; current: GameSession; games: GameSession[]; practice: PracticeRecord[]; explorations:Exploration[]; activeExplorationId:string|null; training:TrainingSession|null; trainingRound:number; reviews:GameReview[] }

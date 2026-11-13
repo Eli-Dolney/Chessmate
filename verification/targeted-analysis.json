@@ -1,0 +1,290 @@
+[
+  {
+    "id": "check-responses-1",
+    "solution": "Kxe2",
+    "best": {
+      "best": "e1e2",
+      "score": {
+        "kind": "cp",
+        "value": 0
+      },
+      "depth": 65,
+      "pv": "e1e2 g8f7 e2f3 f7e7 f3e3 e7d7 e3e4 d7e6 e4f4 e6d6 f4f5 d6e7 f5e5 e7f7 e5d5 f7f6 d5c6 f6e6 c6c5 e6e5 c5c4 e5f5 c4d4 f5f4 d4d5 f4f3 d5c4 f3e4 c4b5 e4d5 b5b4 d5d4 b4b3 d4e3 b3c2 e3f2 c2c3 f2e1 c3b4 e1f1 b4b3 f1g1 b3c3 g1h2 c3d4 h2g3 d4c4 g3g4 c4b3 g4g3 b3b2 g3g2 b2c1 g2f2 c1d1"
+    },
+    "chosen": {
+      "best": "e1e2",
+      "score": {
+        "kind": "cp",
+        "value": 0
+      },
+      "depth": 65,
+      "pv": "e1e2 g8f7 e2f3 f7e7 f3e3 e7d7 e3e4 d7e6 e4f4 e6d6 f4f5 d6e7 f5e5 e7f7 e5d5 f7f6 d5c6 f6e6 c6c5 e6e5 c5c4 e5f5 c4d4 f5f4 d4d5 f4f3 d5c4 f3e4 c4b5 e4d5 b5b4 d5d4 b4b3 d4e3 b3c2 e3f2 c2c3 f2e1 c3b4 e1f1 b4b3 f1g1 b3c3 g1h2 c3d4 h2g3 d4c4 g3g4 c4b3 g4g3 b3b2 g3g2 b2c1 g2f2 c1d1"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "check-responses-2",
+    "solution": "Kxe7",
+    "best": {
+      "best": "e8e7",
+      "score": {
+        "kind": "cp",
+        "value": 0
+      },
+      "depth": 56,
+      "pv": "e8e7 g1f2 e7d6 f2f3 d6c6 f3f4 c6b5 f4e4 b5c4 e4e3 c4d5 e3d3 d5e6 d3e4 e6e7 e4e5 e7d7 e5d5 d7c7 d5c4 c7c6 c4d4 c6d6 d4c3 d6e6 c3d2 e6e5 d2e2 e5e6 e2d1 e6f7 d1d2 f7e6 d2d3 e6d5 d3c2 d5e5 c2b2 e5f4 b2c3 f4f3 c3b4 f3e2 b4a4 e2f2 a4b5 f2f3 b5c4 f3g2"
+    },
+    "chosen": {
+      "best": "e8e7",
+      "score": {
+        "kind": "cp",
+        "value": 0
+      },
+      "depth": 56,
+      "pv": "e8e7 g1f2 e7d6 f2f3 d6c6 f3f4 c6b5 f4e4 b5c4 e4e3 c4d5 e3d3 d5e6 d3e4 e6e7 e4e5 e7d7 e5d5 d7c7 d5c4 c7c6 c4d4 c6d6 d4c3 d6e6 c3d2 e6e5 d2e2 e5e6 e2d1 e6f7 d1d2 f7e6 d2d3 e6d5 d3c2 d5e5 c2b2 e5f4 b2c3 f4f3 c3b4 f3e2 b4a4 e2f2 a4b5 f2f3 b5c4 f3g2"
+    },
+    "lossCp": 0
+  },
+  {
+    "id": "check-responses-3",
+    "solution": "Be2",
+    "best": {
+      "best": "e1d2",
+      "score": {
+        "kind": "cp",
+        "value": -21
+      },
+      "depth": 39,
+      "pv": "e1d2"
+    },
+    "chosen": {
+      "best": "d1e2",
+      "score": {
+        "kind": "cp",
+        "value": -9
+      },
+      "depth": 43,
+      "pv": "d1e2 e8a8 e1d2 a8a3 e2d3 g8f7 d2e3 f7e6 e3e4 a3a4 e4f3 e6e5 d3f1 a4a3 f3g4 a3a8 g4f3 a8f8 f3e2 e5f4 f1g2 f8g8 g2b7 g8g3 b7h1 g3c3 h1d5 c3a3 d5b7 f4e5 b7c6 e5d4 e2f2 a3e3 c6b7 d4d3 b7g2 e3e8 f2f3 e8f8 f3g4 d3d4 g2h1 f8f1 h1c6 d4e5 c6g2 f1f4 g4g3 e5f5 g2h1 f4a4 g3f3 f5e5"
+    },
+    "lossCp": -12
+  },
+  {
+    "id": "check-responses-4",
+    "solution": "Be7",
+    "best": {
+      "best": "e8d7",
+      "score": {
+        "kind": "cp",
+        "value": -9
+      },
+      "depth": 39,
+      "pv": "e8d7"
+    },
+    "chosen": {
+      "best": "d8e7",
+      "score": {
+        "kind": "cp",
+        "value": -11
+      },
+      "depth": 44,
+      "pv": "d8e7"
+    },
+    "lossCp": 2
+  },
+  {
+    "id": "mate-one-1",
+    "solution": "Re8#",
+    "best": {
+      "best": "e1e8",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "e1e8"
+    },
+    "chosen": {
+      "best": "e1e8",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "e1e8"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "mate-one-2",
+    "solution": "Re1#",
+    "best": {
+      "best": "e8e1",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "e8e1"
+    },
+    "chosen": {
+      "best": "e8e1",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "e8e1"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "mate-one-3",
+    "solution": "Qd8#",
+    "best": {
+      "best": "d1d8",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "d1d8"
+    },
+    "chosen": {
+      "best": "d1d8",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "d1d8"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "mate-one-4",
+    "solution": "Qd1#",
+    "best": {
+      "best": "d8d1",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "d8d1"
+    },
+    "chosen": {
+      "best": "d8d1",
+      "score": {
+        "kind": "mate",
+        "value": 1
+      },
+      "depth": 245,
+      "pv": "d8d1"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "promotion-lab-1",
+    "solution": "a8=Q+",
+    "best": {
+      "best": "a7a8q",
+      "score": {
+        "kind": "mate",
+        "value": 8
+      },
+      "depth": 109,
+      "pv": "a7a8q h8g7 a8e8 g7f6 g1f2 f6f5 f2e3 f5g5 e8e6 g5h4 e6g6 h4h3 e3f3 h3h4 g6g4"
+    },
+    "chosen": {
+      "best": "a7a8q",
+      "score": {
+        "kind": "mate",
+        "value": 8
+      },
+      "depth": 109,
+      "pv": "a7a8q h8g7 a8e8 g7f6 g1f2 f6f5 f2e3 f5g5 e8e6 g5h4 e6g6 h4h3 e3f3 h3h4 g6g4"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "promotion-lab-2",
+    "solution": "a1=Q+",
+    "best": {
+      "best": "a2a1q",
+      "score": {
+        "kind": "mate",
+        "value": 8
+      },
+      "depth": 96,
+      "pv": "a2a1q h1h2 a1g7 h2h1 g8h7 h1h2 h7h6 h2h1 h6h5 h1h2 h5h4 h2h1 h4g3 h1g1 g7a1"
+    },
+    "chosen": {
+      "best": "a2a1q",
+      "score": {
+        "kind": "mate",
+        "value": 8
+      },
+      "depth": 96,
+      "pv": "a2a1q h1h2 a1g7 h2h1 g8h7 h1h2 h7h6 h2h1 h6h5 h1h2 h5h4 h2h1 h4g3 h1g1 g7a1"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "promotion-lab-3",
+    "solution": "f8=R",
+    "best": {
+      "best": "f7f8r",
+      "score": {
+        "kind": "mate",
+        "value": 2
+      },
+      "depth": 245,
+      "pv": "f7f8r h7h6 f8h8"
+    },
+    "chosen": {
+      "best": "f7f8r",
+      "score": {
+        "kind": "mate",
+        "value": 2
+      },
+      "depth": 245,
+      "pv": "f7f8r h7h6 f8h8"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "promotion-lab-4",
+    "solution": "f1=R",
+    "best": {
+      "best": "f2f1r",
+      "score": {
+        "kind": "mate",
+        "value": 2
+      },
+      "depth": 245,
+      "pv": "f2f1r h2h3 f1h1"
+    },
+    "chosen": {
+      "best": "f2f1r",
+      "score": {
+        "kind": "mate",
+        "value": 2
+      },
+      "depth": 245,
+      "pv": "f2f1r h2h3 f1h1"
+    },
+    "lossCp": null
+  },
+  {
+    "id": "shilling-poisoned-capture",
+    "analysis": {
+      "best": "d8g5",
+      "score": {
+        "kind": "cp",
+        "value": 69
+      },
+      "depth": 24,
+      "pv": "d8g5"
+    }
+  }
+]

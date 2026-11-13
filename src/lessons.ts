@@ -1,6 +1,7 @@
 import { Chess } from 'chess.js';
 import { positionKey } from './chess';
 import type { LessonExercise, OpeningModule } from './types';
+import {situationModules,situationExercises} from './situations';
 import {extraModules,extraExercises} from './expandedLessons';
 export const modules:OpeningModule[]=[
  {id:'italian',title:'The Italian Game',subtitle:'White · 1.e4',color:'w',description:'Build a useful center, develop with purpose, and get your king safe. Learn what to do after the familiar first moves.'},
@@ -37,6 +38,6 @@ export const exercises:LessonExercise[]=[
  lesson('qgd',7,'Keep a pawn in the center','d4 d5 c4 e6 Nc3 Nf6 cxd5',['exd5'],'Recapture with a pawn to enter the Exchange structure.','Your e6 pawn can recapture.','exd5 restores material and keeps a pawn on d5. The structure changes: learn the open files and pawn breaks instead of treating this as the same position.',['Bg5','Be7']),
  lesson('qgd',8,'A gambit is not a free pawn','d4 d5 c4 e6 Nc3 Nf6 Bg5 Nbd7 cxd5 exd5 Nxd5',['Nxd5'],'White grabbed d5, relying on the apparent pin to your queen. Find the tactical reply.','After the knight captures d5, a bishop capture on d8 can be met by a checking bishop move.','Nxd5 works tactically: Bxd8 is answered by Bb4+, forcing Qd2, then Bxd2+. This Lasker Trap shows why a pin to a queen is not an absolute pin.',['Bxd8','Bb4+','Qd2','Bxd2+','Kxd2','Kxd8'],'tactic')
 ];
-modules.push(...extraModules);
-exercises.push(...extraExercises);
+modules.push(...extraModules,...situationModules);
+exercises.push(...extraExercises,...situationExercises);
 export function recognizedLessons(fen:string) {return exercises.filter(e=>positionKey(e.fen)===positionKey(fen));}

@@ -1,10 +1,26 @@
 import {Chess} from 'chess.js';
-import {exercises} from './lessons';
+import {exercises,modules} from './lessons';
 import {lineSan,positionKey,sanFor} from './chess';
 import {isDue,schedule} from './storage';
 import type {AppData,LearningMoment,LearningTopic,LessonExercise,PracticeRecord,TrainingSession} from './types';
 
-export const moduleTopics:Record<string,LearningTopic>={italian:'opening',caro:'opening',qgd:'opening',ruy:'opening',scotch:'opening',sicilian:'opening',french:'opening',scandinavian:'opening',london:'opening',qga:'opening',slav:'opening',kingsindian:'opening',threats:'tactics','forks-pins':'tactics',calculation:'tactics',activity:'strategy','pawn-king':'strategy',endgames:'endgame'};
+export const moduleTopics:Record<string,LearningTopic>={italian:'opening',caro:'opening',qgd:'opening',ruy:'opening',scotch:'opening',sicilian:'opening',french:'opening',scandinavian:'opening',london:'opening',qga:'opening',slav:'opening',kingsindian:'opening',threats:'tactics','forks-pins':'tactics',calculation:'tactics',activity:'strategy','pawn-king':'strategy',endgames:'endgame','check-responses':'tactics','mate-one':'tactics','promotion-lab':'endgame'};
+export const focusGroups=[
+ {id:'defend',title:'Defend your king',description:'Checks, attacked pieces, and safe replies.',modules:['threats','check-responses']},
+ {id:'tactics',title:'Find a tactic',description:'Forks, pins, and captures worth calculating.',modules:['forks-pins','calculation']},
+ {id:'mate',title:'Finish the attack',description:'Find mate in one and cover every escape.',modules:['mate-one']},
+ {id:'plans',title:'Build a better position',description:'Piece activity, pawn breaks, and king safety.',modules:['activity','pawn-king']},
+ {id:'endgame',title:'Convert the endgame',description:'King activity, promotion, and avoiding stalemate.',modules:['endgames','promotion-lab']},
+ {id:'traps',title:'Defend against traps',description:'Opening dangers and concrete defensive ideas.',modules:[]}
+];
+export function focusedExercises(focus:string){const [kind,id]=focus.split(':');if(kind==='opening'&&modules.some(m=>m.id===id&&(m.category??'opening')==='opening'))return exercises.filter(e=>e.module===id);const group=kind==='situation'&&focusGroups.find(g=>g.id===id);if(!group)return [];return exercises.filter(e=>group.id==='traps'?e.theme==='defense'&&moduleTopics[e.module]==='opening':group.modules.includes(e.module));}
+export function buildFocusedTraining(data:AppData,focus:string,now=new Date()):TrainingSession{
+ const pool=focusedExercises(focus);if(!pool.length)throw new Error('No exercises for this focus.');const id=crypto.randomUUID();
+ const records=pool.map(e=>data.practice.find(r=>r.exerciseId===e.id)??{id:e.id,exerciseId:e.id,stage:0,due:now.toISOString(),lastSession:'',missed:false,attempts:0});
+ records.sort((a,b)=>Number(isDue(b,id,now)&&b.attempts>0)-Number(isDue(a,id,now)&&a.attempts>0)||a.attempts-b.attempts||a.due.localeCompare(b.due));
+ const key=focus.split(':')[1],label=focus.startsWith('opening:')?modules.find(m=>m.id===key)!.title:focusGroups.find(g=>g.id===key)!.title;
+ return {id,label,created:now.toISOString(),cursor:0,items:records.slice(0,6).map(record=>({record:structuredClone(record),topic:moduleTopics[exerciseFor(record)!.module],result:'pending',missed:false,revealed:false,hint:0}))};
+}
 export const practiceKey=(r:PracticeRecord)=>r.exerciseId?`lesson:${r.exerciseId}`:`position:${positionKey(r.moment!.fen)}:${r.moment!.best}`;
 export function momentRecord(moment:LearningMoment):PracticeRecord{return {id:`moment:${moment.id}`,moment,stage:0,due:new Date().toISOString(),lastSession:'',missed:false,attempts:0};}
 export function addPractice(records:PracticeRecord[],record:PracticeRecord){return records.some(r=>practiceKey(r)===practiceKey(record))?records:[...records,record];}
@@ -24,7 +40,7 @@ export function buildTraining(data:AppData,now=new Date()):TrainingSession{
  const buckets=topics.map(t=>exercises.filter(e=>(moduleTopics[e.module]??'opening')===t).sort((a,b)=>{
   const ar=data.practice.find(r=>r.exerciseId===a.id),br=data.practice.find(r=>r.exerciseId===b.id);return (ar?.attempts??0)-(br?.attempts??0);
  }));
- for(let i=0;i<84;i++)for(let t=0;t<4;t++){const e=buckets[(t+data.trainingRound)%4][i];if(e)lessons.push(data.practice.find(r=>r.exerciseId===e.id)??{id:e.id,exerciseId:e.id,stage:0,due:now.toISOString(),lastSession:'',missed:false,attempts:0});}
+ for(let i=0;i<exercises.length;i++)for(let t=0;t<4;t++){const e=buckets[(t+data.trainingRound)%4][i];if(e)lessons.push(data.practice.find(r=>r.exerciseId===e.id)??{id:e.id,exerciseId:e.id,stage:0,due:now.toISOString(),lastSession:'',missed:false,attempts:0});}
  take(lessons.filter(r=>!r.attempts),2);take(due,6);take(lessons.filter(r=>!r.attempts),6);take(lessons,6);
  return {id,created:now.toISOString(),cursor:0,items:chosen.map(record=>({record,topic:moduleTopics[exerciseFor(record)!.module]??'tactics',result:'pending',missed:false,revealed:false,hint:0}))};
 }

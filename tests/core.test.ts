@@ -7,7 +7,7 @@ import {explainMove,inspectPosition} from '../src/coach';
 import {defaults,saveData,loadData,validateBackup,schedule,isDue,importPgn} from '../src/storage';
 import type {PracticeRecord} from '../src/types';
 describe('opening curriculum',()=>{
- it('preserves original lessons and adds the balanced curriculum',()=>{expect(modules).toHaveLength(18);expect(new Set(exercises.map(e=>e.id)).size).toBe(84);for(const m of modules)expect(exercises.filter(e=>e.module===m.id)).toHaveLength(['italian','caro','qgd'].includes(m.id)?8:4);});
+ it('preserves original lessons and adds the balanced curriculum',()=>{expect(modules).toHaveLength(21);expect(new Set(exercises.map(e=>e.id)).size).toBe(96);for(const m of modules)expect(exercises.filter(e=>e.module===m.id)).toHaveLength(['italian','caro','qgd'].includes(m.id)?8:4);});
  for(const e of exercises)it(`${e.id}: solution and continuation are legal`,()=>{for(const answer of e.accepted){const c=new Chess(e.fen);expect(c.move(answer)).toBeTruthy();for(const move of e.continuation)expect(c.move(move)).toBeTruthy();}expect(recognizedLessons(e.fen).some(x=>x.id===e.id)).toBe(true);});
  it('recognizes a transposed board independent of move clocks',()=>{const a=new Chess();for(const s of ['Nf3','d5','d4','Nf6','c4','e6','Nc3','Be7','Bg5','O-O','e3'])a.move(s);expect(recognizedLessons(a.fen()).some(e=>e.id==='qgd-5')).toBe(true);});
 });

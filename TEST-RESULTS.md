@@ -1,5 +1,14 @@
 # Verification — 2026-11-13
 
+## Chessmate 1.5.0 — responsive workspace and focused practice
+
+- Production build and **241 unit tests passed**, covering all 96 authored solutions and variations, focused selection for every opening/situation, due-item ordering, session labels and backup round-trip, legal starting diagrams, mate-in-one claims, and queen-promotion stalemates.
+- **41 browser scenarios passed** in the full regression run. After correcting two new starting diagrams and tuning board width, the affected all-96 curriculum run and three focused/responsive scenarios were rerun successfully.
+- Responsive coverage: 1920 × 1080, 2560 × 1440, and 390 × 844. Verified increased board width, full workspace use, adjacent coach/notebook columns on wide screens, no horizontal overflow, and keyboard operation of focused practice choices.
+- Focused practice checks include Sicilian selection, resuming at the saved item, an explicit paused-session replacement notice, mate execution, endgame selection, and an unchanged live game.
+- All 12 new positions received five-second Stockfish searches, with forced candidate searches where needed. Final results are in `verification/targeted-analysis.json`; every final row has a usable line. The largest positive finite candidate gap was 2 centipawns. Mate and stalemate claims are also checked directly using chess.js. The verification script now rejects missing engine lines instead of silently recording an empty result.
+- Existing saves, themes, original exercises, offline assets, and separate Windows/Mac launchers remain compatible. No runtime services or remote content were added.
+
 ## Chessmate 1.4.0 — themes and Style studio
 
 - Production build and all **213 unit tests passed**.
